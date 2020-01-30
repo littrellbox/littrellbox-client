@@ -5,6 +5,7 @@ import SocketContext from './contexts/socketContext'
 import './css/App.css';
 
 import AppLoading from './misc/AppLoading'
+import Login from './login/Login'
 
 const uri = 'http://localhost:3001'
 
@@ -45,6 +46,7 @@ class App extends React.Component {
     return (
       <SocketContext.Provider value={this.socket}> {/* We need this to pass the socket down to child components */}
         <div className="App">
+          <Login/>
           {!this.state.isConnected && <AppLoading/>}
         </div>
       </SocketContext.Provider>

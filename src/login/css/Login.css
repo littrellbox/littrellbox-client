@@ -1,0 +1,29 @@
+.Login-textbox {
+  display: block;
+  margin-bottom: 0.5rem;
+  width: 20rem;
+  font-size: 1.25rem;
+}
+
+.Login-signup-text {
+  margin-top: auto;
+  margin-bottom: auto;
+  margin-left: auto;
+  cursor: default;
+}
+
+.Login-signup-text-span {
+  font-weight: bolder;
+  cursor: pointer;
+}
+
+.Login-buttons {
+  display: flex;
+}
+
+.Login {
+  position: absolute;
+  top: 50%;
+  left: 50%;
+  transform: translate(-50%, -50%);
+}

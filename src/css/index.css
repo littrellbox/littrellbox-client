@@ -12,3 +12,36 @@ code {
   font-family: source-code-pro, Menlo, Monaco, Consolas, 'Courier New',
     monospace;
 }
+
+.inline {
+  display: inline-block;
+}
+
+input[type=text], input[type=password] {
+  background: #333333;
+  border-radius: 0.25rem;
+  border-style: none;
+  padding: 0.5rem;
+  color: #cccccc;
+  transition: 0.2s;
+}
+
+input[type=text]:hover, input[type=password]:hover {
+  background: #444444;
+}
+
+input[type=text]:focus, input[type=password]:focus {
+  background: #444444;
+}
+
+.button {
+  background: #333333;
+  border-radius: 0.25rem;
+  padding: 0.5rem;
+  cursor: pointer;
+  transition: 0.2s;
+}
+
+.button:hover {
+  background: #444444;
+}
