@@ -1,5 +1,6 @@
 import React from 'react';
 import axios from 'axios';
+import SocketContext from '../contexts/socketContext'
 import './css/Login.css';
 
 class Login extends React.Component {
@@ -10,7 +11,8 @@ class Login extends React.Component {
       isRegistering: false,
       username: "",
       password: "",
-      email: ""
+      email: "",
+      error: "",
     }
 
     this.switchMode = this.switchMode.bind(this)
@@ -23,32 +25,83 @@ class Login extends React.Component {
 
   switchMode() {
     this.setState({
+      error: "",
       isRegistering: !this.state.isRegistering
     })
   }
 
   register() {
-    if(this.state.username === "" || this.state.password === "") {
-      return //TODO: make warnings
+    if(this.state.username === "") {
+      this.setState({
+        error: "Username required."
+      })
+      return;
     } 
+    if(this.state.email === "") {
+      this.setState({
+        error: "Email required."
+      })
+      return;
+    } 
+    if(this.state.password === "") {
+      this.setState({
+        error: "Password required."
+      })
+      return;
+    }
     axios.post(`http://localhost:3001/auth/register`, {
       username: this.state.username,
       email: this.state.email,
       password: this.state.password
     }).then((response) => {
-      console.log(response)
+      window.localStorage.setItem('token', response.data.user.token);
+      this.context.emit('authenticate', response.data.user.token);
+    }).catch((response) => {
+      if(response.toString().indexOf("400") !== -1) {
+        this.setState({
+          error: "That username is taken."
+        })
+      } else if (response.toString().indexOf("422") !== -1) {
+        this.setState({
+          error: "That email is already being used."
+        })
+      } else {
+        this.setState({
+          error: "An error occured creating your account.\nPlease try again later."
+        })
+      }
     })
   }
 
   login() {
-    if(this.state.username === "" || this.state.password === "") {
-      return //TODO: make warnings
+    if(this.state.username === "") {
+      this.setState({
+        error: "Username required."
+      })
+      return;
+    } 
+    if(this.state.password === "") {
+      this.setState({
+        error: "Password required."
+      })
+      return;
     } 
     axios.post(`http://localhost:3001/auth/login`, {
       username: this.state.username,
       password: this.state.password
     }).then((response) => {
-      console.log(response)
+      window.localStorage.setItem('token', response.data.user.token);
+      this.context.emit('authenticate', response.data.user.token)
+    }).catch((response) => {
+      if(response.toString().indexOf("400") !== -1) {
+        this.setState({
+          error: "Incorrect username or password."
+        })
+      } else {
+        this.setState({
+          error: "An error occured logging into your account.\nPlease try again later."
+        })
+      }
     })
   }
 
@@ -73,6 +126,7 @@ class Login extends React.Component {
   render() {
     return (
       <div className="Login">
+        {this.state.error !== "" && <div className="Login-error">{this.state.error}</div>}
         <input type="text" className="Login-textbox" placeholder="Username" value={this.state.username} onChange={this.changeUsername}/>
         {this.state.isRegistering && <input type="text" className="Login-textbox" placeholder="Email" value={this.state.email} onChange={this.changeEmail}/>}
         <input type="password" className="Login-textbox" placeholder="Password" value={this.state.password} onChange={this.changePassword}/>
@@ -92,5 +146,7 @@ class Login extends React.Component {
     )
   }
 }
+
+Login.contextType = SocketContext
 
 export default Login;
