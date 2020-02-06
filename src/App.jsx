@@ -82,6 +82,8 @@ class App extends React.Component {
     this.setState({
       hasLoggedIn: false
     })
+    this.user = null;
+    this.socket.emit("logout")
     window.localStorage.removeItem("token");
   }
 

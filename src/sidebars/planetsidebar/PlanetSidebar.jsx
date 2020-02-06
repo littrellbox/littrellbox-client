@@ -22,7 +22,6 @@ class PlanetSidebar extends React.Component {
   }
 
   updatePlanet(planetId, planet) {
-    console.log("ab");
     let planetArray = this.state.planets;
     planetArray[planetId] = planet;
     this.setState({
@@ -35,7 +34,6 @@ class PlanetSidebar extends React.Component {
   }
 
   render() {
-    console.log(Object.entries(this.state.planets));
     return (
       <div className="PlanetSidebar">
         {Object.entries(this.state.planets).map((planet) => (<PlanetSidebarButton key={planet[0]} planet={planet[1]}/>))}
