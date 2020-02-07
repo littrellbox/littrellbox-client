@@ -35,6 +35,7 @@ class App extends React.Component {
     this.logout = this.logout.bind(this)
     this.onConnect = this.onConnect.bind(this)
     this.onDisconnect = this.onDisconnect.bind(this)
+    this.forceDeauthentication = this.forceDeauthentication.bind(this)
     this.authentication = this.authentication.bind(this)
   }
 
@@ -52,7 +53,15 @@ class App extends React.Component {
     this.socket.on("disconnect", this.onDisconnect);
 
     this.socket.on("authentication", this.authentication);
+    this.socket.on("forcefullydeauth", this.forceDeauthentication);
     this.socket.on("setuser", (document) => {this.user = document})
+  }
+
+  forceDeauthentication() {
+    this.user = null;
+    this.setState({
+      hasLoggedIn: false
+    })
   }
 
   authentication(user) {

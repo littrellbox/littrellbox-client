@@ -4,4 +4,29 @@
   background-color: #333333;
   border-radius: 0.35rem;
   margin-bottom: 0.5rem;
+  cursor: pointer;
+  transition: 0.2s;
+  text-align: center;
+}
+
+.PlanetSidebarButton-textbox {
+  position: absolute;
+  left: 0.5rem;
+  height: 2.5rem;
+  padding-left: 0 !important;
+  padding-right: 0 !important;
+  margin: 0;
+  width: 0rem;
+  font-size: 1.5rem;
+  transition: 0.2s;
+  z-index: 10;
+}
+
+.PlanetSidebarButton-textbox-post {
+  width: 20em;
+  padding: 0.5rem !important;
+}
+
+.PlanetSidebarButton:hover {
+  background-color: #444444;
 }
