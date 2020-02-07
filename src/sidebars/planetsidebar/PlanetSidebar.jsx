@@ -1,5 +1,4 @@
 import React from 'react'
-
 import './css/PlanetSidebar.css'
 import SocketContext from '../../contexts/socketContext'
 import PlanetSidebarButton from './PlanetSidebarButton'
@@ -18,6 +17,9 @@ class PlanetSidebar extends React.Component {
 
   componentDidMount() {
     this.context.on('updateplanet', this.updatePlanet);
+    this.setState({
+      planets: {}
+    })
     this.context.emit('getallplanets');
   }
 
@@ -39,7 +41,7 @@ class PlanetSidebar extends React.Component {
         {Object.entries(this.state.planets).map((planet) => (<PlanetSidebarButton key={planet[0]} planet={planet[1]}/>))}
         <div className="PlanetSidebarButton" onClick={this.createPlanet}>
           create
-        </div>
+        </div>  
       </div>
     )
   }
