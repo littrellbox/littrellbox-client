@@ -8,6 +8,7 @@ import './css/App.css';
 import AppLoading from './misc/AppLoading'
 import Login from './login/Login'
 import PlanetSidebar from './sidebars/planetsidebar/PlanetSidebar';
+import ChannelSidebar from './sidebars/channelsidebar/ChannelSidebar';
 
 const uri = 'http://localhost:3001'
 
@@ -17,34 +18,24 @@ class App extends React.Component {
 
     this.state = {
       isConnected: false, 
-      hasLoggedIn: false
+      hasLoggedIn: false,
+      user: {},
+      chat: {
+        planet: {},
+        channel: {},
+      }
     }
-
-    this.user = {}
 
     //create the socket
     this.socket = socketClient(uri)
-
-    this.chat = {
-      planet: {},
-      channel: {},
-      switchPlanet: this.switchPlanet.bind(this),
-      switchChannel: this.switchChannel.bind(this)
-    }
 
     this.logout = this.logout.bind(this)
     this.onConnect = this.onConnect.bind(this)
     this.onDisconnect = this.onDisconnect.bind(this)
     this.forceDeauthentication = this.forceDeauthentication.bind(this)
     this.authentication = this.authentication.bind(this)
-  }
-
-  switchPlanet(planet) {
-    this.chat.planet = planet;
-  }
-
-  switchChannel(channel) {
-    this.chat.channel = channel;
+    this.setUser = this.setUser.bind(this)
+    this.setPlanet = this.setPlanet.bind(this)
   }
 
   componentDidMount() {
@@ -54,7 +45,22 @@ class App extends React.Component {
 
     this.socket.on("authentication", this.authentication);
     this.socket.on("forcefullydeauth", this.forceDeauthentication);
-    this.socket.on("setuser", (document) => {this.user = document})
+    this.socket.on("setuser", this.setUser)
+    this.socket.on("setplanet", this.setPlanet)
+  }
+
+  setPlanet(document) {
+    let chat = this.state.chat;
+    chat.planet = document;
+    this.setState({
+      chat: chat
+    })
+  }
+
+  setUser(document) {
+    this.setState({
+      user: this.user
+    })
   }
 
   forceDeauthentication() {
@@ -99,13 +105,14 @@ class App extends React.Component {
   render() {
     return (
       <SocketContext.Provider value={this.socket}> {/* We need this to pass the socket down to child components */}
-        <AuthContext.Provider value={this.user}>
-          <ChatContext.Provider value={this.chat}>
+        <AuthContext.Provider value={this.state.user}>
+          <ChatContext.Provider value={this.state.chat}>
             <div className="App">
               {this.state.isConnected && !this.state.hasLoggedIn && <Login/>}
               {!this.state.isConnected && <AppLoading/>}
               {this.state.isConnected && this.state.hasLoggedIn && <div className="App-app">
                 <PlanetSidebar/>
+                {this.state.chat.planet._id && <ChannelSidebar/>}
                 <div onClick={this.logout}>Logout (temp button)</div>  
               </div>}
             </div>
