@@ -16,9 +16,7 @@ class ChannelSidebarButton extends React.Component {
   render() {
     return (
       <div className="ChannelSidebarButton" onClick={this.onClick}>
-        {//this.props.planet.name
-        }
-        test
+        {this.props.channel.name}
       </div>
     )
   }
