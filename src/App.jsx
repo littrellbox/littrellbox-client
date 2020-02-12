@@ -112,7 +112,7 @@ class App extends React.Component {
               {!this.state.isConnected && <AppLoading/>}
               {this.state.isConnected && this.state.hasLoggedIn && <div className="App-app">
                 <PlanetSidebar/>
-                {this.state.chat.planet._id && <ChannelSidebar/>}
+                {this.state.chat.planet._id && <ChannelSidebar planetId={this.state.chat.planet._id}/>}
                 <div onClick={this.logout}>Logout (temp button)</div>  
               </div>}
             </div>

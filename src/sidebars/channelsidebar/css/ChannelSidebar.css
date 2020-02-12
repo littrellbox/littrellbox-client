@@ -73,3 +73,7 @@
   width: calc(100% - 1.5rem);
   transition: 0.1s;
 }
+
+.ChannelSidebar-channels-list {
+  margin-top: 0.3rem;
+}
