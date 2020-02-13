@@ -3,21 +3,19 @@
   max-width: 15rem;
   min-height: 100%;
   max-height: 100%;
-  background-color: #222222;
   position: relative;
   transition: 0.2s;
 }
 
-.ChannelSidebar-header {
-  background-color: #111111;
-  padding: 0.5rem;
-  padding-left: 0.25rem;
-  width: calc(100% - 0.75rem);
-  border-bottom-right-radius: 0.35rem;
+.ChannelSidebar-channels-list {
+  margin-top: -0.25rem;  
+  border-right: 0 !important;
+  height: 100%;
 }
 
 .ChannelSidebar-header-planet {
-  font-size: 1.25rem;
+  font-size: 1rem;
+  margin-left: -2rem;
 }
 
 .ChannelSidebar-header-user {
@@ -25,27 +23,9 @@
   font-size: 0.9rem;
 }
 
-.ChannelSidebar-header-decoration {
-  background-color: #111111;
-  width: 0.25rem;
-  height: 0.25rem;
-  position: absolute;
-}
-
-.ChannelSidebar-header-rounder {
-  width: 100%;
-  height: 100%;
-  background-color: #222222;
-  border-top-left-radius: 100%;
-}
-
 .ChannelSidebar-channels-header {
-  padding-left: 0.45rem;
-  padding-top: 0.45rem;
-  padding-right: 0.55rem;
   text-transform: uppercase;
   font-weight: bold;
-  background-color: #222222;
   display: flex;
 }
 
@@ -54,26 +34,4 @@
   color: #777777;
   font-size: 0.9rem;
   cursor: pointer;
-}
-
-.ChannelSidebar-channels-header-textbox {
-  position: absolute;
-  padding: 0.25rem !important;
-  font-size: 0.9rem !important;
-  width: calc(100% - 1.5rem);
-  z-index: 10;
-  transition: 0.1s;
-}
-
-.ChannelSidebar-channels-header-textbox-ia {
-  position: absolute;
-  height: 0;
-  padding: 0 0.25rem !important;
-  font-size: 0rem !important;
-  width: calc(100% - 1.5rem);
-  transition: 0.1s;
-}
-
-.ChannelSidebar-channels-list {
-  margin-top: 0.3rem;
 }

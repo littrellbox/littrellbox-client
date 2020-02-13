@@ -1,8 +1,0 @@
-.ChannelSidebarButton {
-  padding: 0.5rem;
-  transition: 0.2s;
-}
-
-.ChannelSidebarButton:hover {
-  background-color: #3c3c3c;
-}

@@ -2,7 +2,8 @@ import React from 'react';
 import SocketContext from '../../contexts/socketContext';
 import AuthContext from '../../contexts/authContext';
 import ChatContext from '../../contexts/chatContext';
-import ChannelSidebarButton from './ChannelSidebarButton';
+
+import {Menu, Layout, Popover, Input, Icon} from 'antd';
 
 import './css/ChannelSidebar.css'
 
@@ -37,6 +38,10 @@ class ChannelSidebar extends React.Component {
       })
       this.context.emit('getallchannels', this.props.planetId)
     }
+  }
+
+  onClick(id) {
+    this.context.emit("openchannel", id)
   }
 
   onKeyDown(e, planet) {
@@ -80,26 +85,26 @@ class ChannelSidebar extends React.Component {
       <AuthContext.Consumer>
         {(user) => (<ChatContext.Consumer>
           {({planet}) => (
-            <div className="ChannelSidebar">
-              <div className="ChannelSidebar-header">
+            <Layout className="ChannelSidebar">
+              <Layout.Header className="ChannelSidebar-header">
                 <div className="ChannelSidebar-header-planet">{planet._id ? planet.name : "What?"}</div>
-                <div className="ChannelSidebar-header-user">{planet._id ? user.username : "No planet selected"}</div>
-              </div>
-              <div className="ChannelSidebar-header-decoration">
-                <div className="ChannelSidebar-header-rounder"/>
-              </div>
-              <div className="ChannelSidebar-channels">
-                <div className="ChannelSidebar-channels-header">
-                  {this.state.showingTextbox && <div className="fullscreen-close" onClick={this.showTextbox}/>}
-                  <input type="text" className={this.state.showingTextbox ? "ChannelSidebar-channels-header-textbox" : "ChannelSidebar-channels-header-textbox-ia"} value={this.state.textboxText} onKeyDown={(e) => this.onKeyDown(e, planet)} onChange={this.setTextboxValue}/>
-                  <span>channels</span>
-                  <span className="ChannelSidebar-channels-header-new" onClick={this.showTextbox}>new</span>
-                </div>
-                <div className="ChannelSidebar-channels-list">
-                  {Object.entries(this.state.channels).map((channel) => (<ChannelSidebarButton key={channel[0]} channel={channel[1]}/>))}
-                </div>
-              </div>
-            </div>
+              </Layout.Header>
+              <Layout.Content>
+                <Menu className="ChannelSidebar-channels-list">
+                  <Menu.Item key="channels" className="ChannelSidebar-channels-header" disabled={true}>
+                    <span>CHANNELS</span>
+                    <Popover placement="right" title="Create Planet" content={
+                      <Input value={this.state.textboxText} onClick={this.onClick} onKeyDown={this.onKeyDown} onChange={this.setTextboxValue}/>
+                    } trigger="click">
+                      <span className="ChannelSidebar-channels-header-new" onClick={this.showTextbox}>new</span>
+                    </Popover>
+                  </Menu.Item>
+                  {Object.entries(this.state.channels).map((channel) => (<Menu.Item onClick={() => this.onClick(channel[0])} key={channel[0]}>
+                    <span>{channel[1].name}</span>
+                  </Menu.Item>))}
+                </Menu>
+              </Layout.Content>
+            </Layout>
           )}
         </ChatContext.Consumer>)}
       </AuthContext.Consumer>
