@@ -1,6 +1,7 @@
 import React from 'react'
 import './css/PlanetSidebarButton.css'
 import SocketContext from '../../contexts/socketContext'
+import { Avatar } from 'antd';
 
 class PlanetSidebarButton extends React.Component {
   constructor(props) {
@@ -15,9 +16,9 @@ class PlanetSidebarButton extends React.Component {
 
   render() {
     return (
-      <div className="PlanetSidebarButton" onClick={this.onClick}>
+      <Avatar shape="square" className="PlanetSidebarButton" onClick={this.onClick}>
         {this.props.planet.name}
-      </div>
+      </Avatar>
     )
   }
 }
