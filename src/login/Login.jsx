@@ -3,8 +3,6 @@ import axios from 'axios';
 import SocketContext from '../contexts/socketContext'
 import './css/Login.css';
 
-import { message, Button, Input } from 'antd';
-
 class Login extends React.Component {
   constructor(props) {
     super(props)
@@ -14,6 +12,7 @@ class Login extends React.Component {
       username: "",
       password: "",
       email: "",
+      error: "",
     }
 
     this.switchMode = this.switchMode.bind(this)
@@ -26,21 +25,28 @@ class Login extends React.Component {
 
   switchMode() {
     this.setState({
+      error: "",
       isRegistering: !this.state.isRegistering
     })
   }
 
   register() {
     if(this.state.username === "") {
-      message.error("Username required.")
+      this.setState({
+        error: "Username required."
+      })
       return;
     } 
     if(this.state.email === "") {
-      message.error("Email required.")
+      this.setState({
+        error: "Email required."
+      })
       return;
     } 
     if(this.state.password === "") {
-      message.error("Password required.")
+      this.setState({
+        error: "Password required."
+      })
       return;
     }
     axios.post(`http://localhost:3001/auth/register`, {
@@ -52,22 +58,32 @@ class Login extends React.Component {
       this.context.emit('authenticate', response.data.user.token);
     }).catch((response) => {
       if(response.toString().indexOf("400") !== -1) {
-        message.error("That username is taken.")
+        this.setState({
+          error: "That username is taken."
+        })
       } else if (response.toString().indexOf("422") !== -1) {
-        message.error("That email is already being used.")
+        this.setState({
+          error: "That email is already being used."
+        })
       } else {
-        message.error("An error occured creating your account.\nPlease try again later.")
+        this.setState({
+          error: "An error occured creating your account.\nPlease try again later."
+        })
       }
     })
   }
 
   login() {
     if(this.state.username === "") {
-      message.error("Username required.")
+      this.setState({
+        error: "Username required."
+      })
       return;
     } 
     if(this.state.password === "") {
-      message.error("Password required.")
+      this.setState({
+        error: "Password required."
+      })
       return;
     } 
     axios.post(`http://localhost:3001/auth/login`, {
@@ -78,9 +94,13 @@ class Login extends React.Component {
       this.context.emit('authenticate', response.data.user.token)
     }).catch((response) => {
       if(response.toString().indexOf("400") !== -1) {
-        message.error("Incorrect username or password.")
+        this.setState({
+          error: "Incorrect username or password."
+        })
       } else {
-        message.error("An error occured logging into your account.\nPlease try again later.")
+        this.setState({
+          error: "An error occured logging into your account.\nPlease try again later."
+        })
       }
     })
   }
@@ -106,11 +126,17 @@ class Login extends React.Component {
   render() {
     return (
       <div className="Login">
-        <Input type="text" size="large" className="Login-textbox" placeholder="Username" value={this.state.username} onChange={this.changeUsername}/>
-        {this.state.isRegistering && <Input type="text"  size="large" className="Login-textbox" placeholder="Email" value={this.state.email} onChange={this.changeEmail}/>}
-        <Input type="password" size="large" className="Login-textbox" placeholder="Password" value={this.state.password} onChange={this.changePassword}/>
+        {this.state.error !== "" && <div className="Login-error">{this.state.error}</div>}
+        <input type="text" className="Login-textbox" placeholder="Username" value={this.state.username} onChange={this.changeUsername}/>
+        {this.state.isRegistering && <input type="text" className="Login-textbox" placeholder="Email" value={this.state.email} onChange={this.changeEmail}/>}
+        <input type="password" className="Login-textbox" placeholder="Password" value={this.state.password} onChange={this.changePassword}/>
         <div className="Login-buttons">
-          {this.state.isRegistering ? <Button type="primary" onClick={this.register}>Register</Button> : <Button type="primary" onClick={this.login}>Login</Button>}
+          {this.state.isRegistering ? <div className="button inline" onClick={this.register}>
+            Register
+          </div> : <div className="button inline" onClick={this.login}>
+            Login
+
+          </div>}
           <div className="inline Login-signup-text">
             {this.state.isRegistering ? "Have an account? " : "No account? "}
             <span className="Login-signup-text-span" onClick={this.switchMode}>{this.state.isRegistering ? "Log in!" : "Sign up!"}</span>
