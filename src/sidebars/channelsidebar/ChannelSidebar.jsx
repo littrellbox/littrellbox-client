@@ -40,8 +40,8 @@ class ChannelSidebar extends React.Component {
     }
   }
 
-  onClick(id) {
-    this.context.emit("openchannel", id)
+  onClick(item) {
+    this.context.emit("openchannel", item.key)
   }
 
   onKeyDown(e, planet) {
@@ -90,7 +90,7 @@ class ChannelSidebar extends React.Component {
                 <div className="ChannelSidebar-header-planet">{planet._id ? planet.name : "What?"}</div>
               </Layout.Header>
               <Layout.Content>
-                <Menu className="ChannelSidebar-channels-list">
+                <Menu onClick={(item) => this.onClick(item) } className="ChannelSidebar-channels-list">
                   <Menu.Item key="channels" className="ChannelSidebar-channels-header" disabled={true}>
                     <span>CHANNELS</span>
                     <Popover placement="right" title="Create Planet" content={
@@ -99,7 +99,7 @@ class ChannelSidebar extends React.Component {
                       <span className="ChannelSidebar-channels-header-new" onClick={this.showTextbox}>new</span>
                     </Popover>
                   </Menu.Item>
-                  {Object.entries(this.state.channels).map((channel) => (<Menu.Item onClick={() => this.onClick(channel[0])} key={channel[0]}>
+                  {Object.entries(this.state.channels).map((channel) => (<Menu.Item key={channel[0]}>
                     <span>{channel[1].name}</span>
                   </Menu.Item>))}
                 </Menu>
