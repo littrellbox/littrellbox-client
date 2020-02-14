@@ -2,8 +2,6 @@ import React from 'react'
 import './css/PlanetSidebar.css'
 import SocketContext from '../../contexts/socketContext'
 import PlanetSidebarButton from './PlanetSidebarButton'
-import { Avatar, Popover, Input } from 'antd'
-
 
 class PlanetSidebar extends React.Component {
   constructor(props) {
@@ -69,13 +67,11 @@ class PlanetSidebar extends React.Component {
     return (
       <div className="PlanetSidebar">
         {Object.entries(this.state.planets).map((planet) => (<PlanetSidebarButton key={planet[0]} planet={planet[1]}/>))}
-        <Popover placement="right" title="Create Planet" content={
-          <Input value={this.state.textboxText} onClick={this.onClick} onKeyDown={this.onKeyDown} onChange={this.setTextboxValue}/>
-        } trigger="click">
-          <Avatar shape="square" className="PlanetSidebarButton" onClick={this.showCreatePlanet}>
+        <div className="PlanetSidebarButton" onClick={this.showCreatePlanet}>
           create
-          </Avatar>
-        </Popover>
+          {this.state.showingTextbox && <div className="fullscreen-close" onClick={this.showCreatePlanet}/>}
+          <input type="text" value={this.state.textboxText} onClick={this.onClick} onKeyDown={this.onKeyDown} onChange={this.setTextboxValue} className={this.state.showingTextbox ? "PlanetSidebarButton-textbox PlanetSidebarButton-textbox-post" : "PlanetSidebarButton-textbox"}/>
+        </div>  
       </div>
     )
   }
