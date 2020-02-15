@@ -3,6 +3,8 @@ import ChatContext from '../contexts/chatContext';
 
 import './css/MessageArea.css'
 import ChannelHeader from './ChannelHeader';
+import MessageTextbox from './MessageTextbox';
+import MessageList from './MessageList';
 
 class MessageArea extends React.Component {
   render() {
@@ -12,8 +14,10 @@ class MessageArea extends React.Component {
         <ChatContext.Consumer>
           {({channel, logout}) => (<div className="MessageArea">
             {channel._id ? (
-              <div>
+              <div className="MessageArea-channel">
                 <ChannelHeader channel={channel}/>
+                <MessageList channelId={channel._id}/>
+                <MessageTextbox/>
               </div>
             ) : (
               <div>
