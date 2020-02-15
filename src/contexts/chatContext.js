@@ -2,7 +2,8 @@ import React from 'react'
 
 export const ChatContext = React.createContext({
   planet: {},
-  channel: {}
+  channel: {},
+  logout: () => {console.log("STUBF: ChatContext.logout")}
 });
 
 export default ChatContext

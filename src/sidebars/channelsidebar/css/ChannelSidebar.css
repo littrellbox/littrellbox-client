@@ -3,17 +3,17 @@
   max-width: 15rem;
   min-height: 100%;
   max-height: 100%;
-  background-color: #222222;
+  background-color: #333333;
   position: relative;
   transition: 0.2s;
 }
 
 .ChannelSidebar-header {
-  background-color: #111111;
+  background-color: #444444;
   padding: 0.5rem;
-  padding-left: 0.25rem;
-  width: calc(100% - 0.75rem);
-  border-bottom-right-radius: 0.35rem;
+  width: calc(100% - 1rem);
+  /*border-bottom-right-radius: 0.35rem;
+  padding-left: 0.25rem;*/
 }
 
 .ChannelSidebar-header-planet {
@@ -24,9 +24,9 @@
   color: #aaaaaa;
   font-size: 0.9rem;
 }
-
+/*
 .ChannelSidebar-header-decoration {
-  background-color: #111111;
+  background-color: #222222;
   width: 0.25rem;
   height: 0.25rem;
   position: absolute;
@@ -35,9 +35,9 @@
 .ChannelSidebar-header-rounder {
   width: 100%;
   height: 100%;
-  background-color: #222222;
+  background-color: #333333;
   border-top-left-radius: 100%;
-}
+}*/
 
 .ChannelSidebar-channels-header {
   padding-left: 0.45rem;
@@ -45,7 +45,7 @@
   padding-right: 0.55rem;
   text-transform: uppercase;
   font-weight: bold;
-  background-color: #222222;
+  background-color: #333333;
   display: flex;
 }
 

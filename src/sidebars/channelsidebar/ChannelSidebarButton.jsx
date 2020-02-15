@@ -9,7 +9,7 @@ class ChannelSidebarButton extends React.Component {
     this.onClick = this.onClick.bind(this);
   }
 
-  onClick() {
+  onClick() { 
     this.context.emit("openchannel", this.props.channel._id)
   }
 

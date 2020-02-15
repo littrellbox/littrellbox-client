@@ -9,6 +9,7 @@ import AppLoading from './misc/AppLoading'
 import Login from './login/Login'
 import PlanetSidebar from './sidebars/planetsidebar/PlanetSidebar';
 import ChannelSidebar from './sidebars/channelsidebar/ChannelSidebar';
+import MessageArea from './messages/MessageArea';
 
 const uri = 'http://localhost:3001'
 
@@ -23,6 +24,7 @@ class App extends React.Component {
       chat: {
         planet: {},
         channel: {},
+        logout: this.logout
       }
     }
 
@@ -36,6 +38,7 @@ class App extends React.Component {
     this.authentication = this.authentication.bind(this)
     this.setUser = this.setUser.bind(this)
     this.setPlanet = this.setPlanet.bind(this)
+    this.setChannel = this.setChannel.bind(this)
   }
 
   componentDidMount() {
@@ -47,6 +50,15 @@ class App extends React.Component {
     this.socket.on("forcefullydeauth", this.forceDeauthentication);
     this.socket.on("setuser", this.setUser)
     this.socket.on("setplanet", this.setPlanet)
+    this.socket.on("setchannel", this.setChannel)
+  }
+
+  setChannel(document) {
+    let chat = this.state.chat;
+    chat.channel = document;
+    this.setState({
+      chat: chat
+    })
   }
 
   setPlanet(document) {
@@ -113,7 +125,7 @@ class App extends React.Component {
               {this.state.isConnected && this.state.hasLoggedIn && <div className="App-app">
                 <PlanetSidebar/>
                 {this.state.chat.planet._id && <ChannelSidebar planetId={this.state.chat.planet._id}/>}
-                <div onClick={this.logout}>Logout (temp button)</div>  
+                <MessageArea/>  
               </div>}
             </div>
           </ChatContext.Provider>
