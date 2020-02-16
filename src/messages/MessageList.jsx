@@ -43,11 +43,11 @@ class MessageList extends React.Component {
   render() {
     return (
       <ScrollableFeed className="MessageList">
-        {Object.entries(this.state.messages).map((message) => (<Message key={message[0]} message={message[1]}/>))}
-        {/*<div className="MessageList">
           {Object.entries(this.state.messages).map((message) => (<Message key={message[0]} message={message[1]}/>))}
-        </div>*/}
-      </ScrollableFeed>
+          {/*<div className="MessageList">
+            {Object.entries(this.state.messages).map((message) => (<Message key={message[0]} message={message[1]}/>))}
+          </div>*/}
+        </ScrollableFeed>
     )
   }
 }
