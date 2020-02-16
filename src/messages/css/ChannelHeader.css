@@ -2,8 +2,7 @@
   width: calc(100% - 1rem);
   background-color: #555555;
   padding: 0.5rem;
-  height: 2.75rem;
-}
+} 
 
 .ChannelHeader-name {
   font-size: 1.25rem;
