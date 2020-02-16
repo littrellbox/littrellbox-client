@@ -24,8 +24,9 @@ class App extends React.Component {
       chat: {
         planet: {},
         channel: {},
-        logout: this.logout
-      }
+        logout: this.logout.bind(this)
+      },
+      info: {}
     }
 
     //create the socket
@@ -36,9 +37,11 @@ class App extends React.Component {
     this.onDisconnect = this.onDisconnect.bind(this)
     this.forceDeauthentication = this.forceDeauthentication.bind(this)
     this.authentication = this.authentication.bind(this)
+    this.logout = this.logout.bind(this)
     this.setUser = this.setUser.bind(this)
     this.setPlanet = this.setPlanet.bind(this)
     this.setChannel = this.setChannel.bind(this)
+    this.setInfo = this.setInfo.bind(this)
   }
 
   componentDidMount() {
@@ -48,9 +51,19 @@ class App extends React.Component {
 
     this.socket.on("authentication", this.authentication);
     this.socket.on("forcefullydeauth", this.forceDeauthentication);
-    this.socket.on("setuser", this.setUser)
-    this.socket.on("setplanet", this.setPlanet)
-    this.socket.on("setchannel", this.setChannel)
+    this.socket.on("setuser", this.setUser);
+    this.socket.on("setplanet", this.setPlanet);
+    this.socket.on("setchannel", this.setChannel);
+    this.socket.on("setinfo", this.setInfo);
+
+    this.socket.emit("getinfo");
+  }
+
+  setInfo(info) {
+    console.log(info);
+    this.setState({
+      info: info
+    })
   }
 
   setChannel(document) {
@@ -71,7 +84,7 @@ class App extends React.Component {
 
   setUser(document) {
     this.setState({
-      user: this.user
+      user: document
     })
   }
 
@@ -120,7 +133,7 @@ class App extends React.Component {
         <AuthContext.Provider value={this.state.user}>
           <ChatContext.Provider value={this.state.chat}>
             <div className="App">
-              {this.state.isConnected && !this.state.hasLoggedIn && <Login/>}
+              {this.state.isConnected && !this.state.hasLoggedIn && <Login needsInvite={this.state.info.inviteCodeReq}/>}
               {!this.state.isConnected && <AppLoading/>}
               {this.state.isConnected && this.state.hasLoggedIn && <div className="App-app">
                 <PlanetSidebar/>

@@ -12,6 +12,7 @@ class Login extends React.Component {
       username: "",
       password: "",
       email: "",
+      inviteCode: "",
       error: "",
     }
 
@@ -21,6 +22,7 @@ class Login extends React.Component {
     this.changeUsername = this.changeUsername.bind(this)
     this.changePassword = this.changePassword.bind(this)
     this.changeEmail = this.changeEmail.bind(this)
+    this.changeCode = this.changeCode.bind(this)
   }
 
   switchMode() {
@@ -49,21 +51,31 @@ class Login extends React.Component {
       })
       return;
     }
-    axios.post(`http://localhost:3001/auth/register`, {
+
+    let registrationObject = {
       username: this.state.username,
       email: this.state.email,
       password: this.state.password
-    }).then((response) => {
+    }
+    if(this.props.needsInvite) {
+      registrationObject.inviteCode = this.state.inviteCode
+    }
+
+    axios.post(`http://localhost:3001/auth/register`, registrationObject).then((response) => {
       window.localStorage.setItem('token', response.data.user.token);
       this.context.emit('authenticate', response.data.user.token);
     }).catch((response) => {
-      if(response.toString().indexOf("400") !== -1) {
+      if(response.toString().indexOf("401") !== -1) {
         this.setState({
           error: "That username is taken."
         })
       } else if (response.toString().indexOf("422") !== -1) {
         this.setState({
           error: "That email is already being used."
+        })
+      } else if (response.toString().indexOf("403") !== -1) {
+        this.setState({
+          error: "Invalid invite code."
         })
       } else {
         this.setState({
@@ -117,6 +129,12 @@ class Login extends React.Component {
     })
   }
 
+  changeCode(e) {
+    this.setState({
+      inviteCode: e.target.value
+    })
+  }
+
   changePassword(e) {
     this.setState({
       password: e.target.value
@@ -129,6 +147,7 @@ class Login extends React.Component {
         {this.state.error !== "" && <div className="Login-error">{this.state.error}</div>}
         <input type="text" className="Login-textbox" placeholder="Username" value={this.state.username} onChange={this.changeUsername}/>
         {this.state.isRegistering && <input type="text" className="Login-textbox" placeholder="Email" value={this.state.email} onChange={this.changeEmail}/>}
+        {this.state.isRegistering && this.props.needsInvite && <input type="text" className="Login-textbox" placeholder="Invite Code" value={this.state.inviteCode} onChange={this.changeCode}/>}
         <input type="password" className="Login-textbox" placeholder="Password" value={this.state.password} onChange={this.changePassword}/>
         <div className="Login-buttons">
           {this.state.isRegistering ? <div className="button inline" onClick={this.register}>
