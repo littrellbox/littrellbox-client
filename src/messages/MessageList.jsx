@@ -2,6 +2,7 @@ import React from 'react';
 import './css/MessageList.css'
 import SocketContext from '../contexts/socketContext';
 import Message from './Message';
+import ScrollableFeed from 'react-scrollable-feed'
 
 class MessageList extends React.Component {
   constructor(props) {
@@ -41,9 +42,12 @@ class MessageList extends React.Component {
 
   render() {
     return (
-      <div className="MessageList">
+      <ScrollableFeed className="MessageList">
         {Object.entries(this.state.messages).map((message) => (<Message key={message[0]} message={message[1]}/>))}
-      </div>
+        {/*<div className="MessageList">
+          {Object.entries(this.state.messages).map((message) => (<Message key={message[0]} message={message[1]}/>))}
+        </div>*/}
+      </ScrollableFeed>
     )
   }
 }
