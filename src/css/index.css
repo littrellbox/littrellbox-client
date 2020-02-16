@@ -59,3 +59,14 @@ div {
   cursor: default;
   user-select: none;
 }
+
+p {
+  margin: 0;
+  padding: 0;
+}
+
+.emoji {
+  padding: 0;
+  margin: 0;
+  width: 1rem;
+}

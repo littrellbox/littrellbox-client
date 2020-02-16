@@ -1,6 +1,7 @@
 import React from 'react';
-
+import ReactMarkdown from 'react-markdown/with-html'
 import './css/Message.css'
+import formatText from './FormatText';
 
 class Message extends React.Component {
   render() {
@@ -14,7 +15,7 @@ class Message extends React.Component {
             <div className="Message-username">{this.props.message.username}</div>
             <div className="Message-date">{new Date(this.props.message.date).toLocaleDateString(navigator.language, timeOptions)}</div>
           </div>
-          <div className="Message-content">{this.props.message.content}</div>
+          <div className="Message-content"><ReactMarkdown escapeHtml={false} unwrapDisallowed={true} source={formatText(this.props.message.content)}/></div>
         </div>
       </div>
     )
