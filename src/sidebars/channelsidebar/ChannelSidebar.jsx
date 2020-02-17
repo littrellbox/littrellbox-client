@@ -3,6 +3,9 @@ import SocketContext from '../../contexts/socketContext';
 import AuthContext from '../../contexts/authContext';
 import ChatContext from '../../contexts/chatContext';
 import ChannelSidebarButton from './ChannelSidebarButton';
+import { FontAwesomeIcon } from '@fortawesome/react-fontawesome'
+import { faUserPlus } from '@fortawesome/free-solid-svg-icons'
+import copy from 'copy-to-clipboard';
 
 import './css/ChannelSidebar.css'
 
@@ -10,24 +13,30 @@ class ChannelSidebar extends React.Component {
   constructor(props) {
     super(props)
 
+    this.textInput = React.createRef();
+
     this.state = {
       showingTextbox: false,
       textboxText: "",
-      channels: {}
+      channels: {},
+      invite: "",
     }
 
     this.onKeyDown = this.onKeyDown.bind(this);
     this.setTextboxValue = this.setTextboxValue.bind(this);
     this.showTextbox = this.showTextbox.bind(this);
     this.updateChannel = this.updateChannel.bind(this);
+    this.getInvite = this.getInvite.bind(this);
+    this.recvInvite = this.recvInvite.bind(this);
   }
 
   componentDidMount() {
     this.context.on('updatechannel', this.updateChannel);
+    this.context.on('recvinvite', this.recvInvite);
     this.setState({
       channels: {}
     })
-    this.context.emit('getallchannels', this.props.planetId)
+    this.context.emit('getallchannels', this.props.planetId);
   }
 
   componentDidUpdate(prevProps) {
@@ -75,6 +84,17 @@ class ChannelSidebar extends React.Component {
     })
   }
 
+  recvInvite(inviteId) {
+    this.setState({
+      invite: window.location.origin + "/invite/" + inviteId
+    })
+  }
+
+  getInvite(planetId) {
+    console.log("a")
+    this.context.emit("getinvite", planetId)
+  }
+
   render() {
     return (
       <AuthContext.Consumer>
@@ -82,7 +102,11 @@ class ChannelSidebar extends React.Component {
           {({planet}) => (
             <div className="ChannelSidebar">
               <div className="ChannelSidebar-header">
-                <div className="ChannelSidebar-header-planet">{planet._id ? planet.name : "What?"}</div>
+                <div className="ChannelSidebar-header-planet">
+                  {planet._id ? planet.name : "What?"} 
+                  {user._id === planet.userId && <FontAwesomeIcon className="ChannelSidebar-header-invite" icon={faUserPlus} onClick={() => this.getInvite(planet._id)}/>} 
+                  {this.state.invite !== "" && <div className="ChannelSidebar-header-user selectable">{this.state.invite}</div>}
+                </div>
                 <div className="ChannelSidebar-header-user">{planet._id ? user.username : "No planet selected"}</div>
               </div>
               <div className="ChannelSidebar-header-decoration">

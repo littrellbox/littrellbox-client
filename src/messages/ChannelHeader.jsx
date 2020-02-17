@@ -1,5 +1,4 @@
 import React from 'react'
-
 import './css/ChannelHeader.css'
 
 class ChannelHeader extends React.Component {
