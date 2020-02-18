@@ -79,6 +79,9 @@
 }
 
 .ChannelSidebar-header-invite {
-  font-size: 1rem;
+  font-size: 0.8rem;
+  margin-top: auto;
+  margin-bottom: auto;
   padding-left: 0.25rem;
+  color: #aaaaaa;
 }
