@@ -21,7 +21,6 @@ class Invite extends React.Component {
   }
 
   setInvitePlanet(planet) {
-    console.log(planet);
     if(planet) {
       this.setState({
         planet: planet[0]
