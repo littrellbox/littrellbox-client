@@ -5,8 +5,9 @@ import AuthContext from './contexts/authContext';
 import ChatContext from './contexts/chatContext';
 import './css/App.css';
 
-import AppLoading from './misc/AppLoading'
-import Login from './login/Login'
+import AppLoading from './misc/AppLoading';
+import Login from './login/Login';
+import Invite from './misc/Invite';
 import PlanetSidebar from './sidebars/planetsidebar/PlanetSidebar';
 import ChannelSidebar from './sidebars/channelsidebar/ChannelSidebar';
 import MessageArea from './messages/MessageArea';
@@ -26,7 +27,8 @@ class App extends React.Component {
         channel: {},
         logout: this.logout.bind(this)
       },
-      info: {}
+      info: {},
+      inviteId: ""
     }
 
     //create the socket
@@ -42,6 +44,7 @@ class App extends React.Component {
     this.setPlanet = this.setPlanet.bind(this)
     this.setChannel = this.setChannel.bind(this)
     this.setInfo = this.setInfo.bind(this)
+    this.closeInvite = this.closeInvite.bind(this)
   }
 
   componentDidMount() {
@@ -57,6 +60,14 @@ class App extends React.Component {
     this.socket.on("setinfo", this.setInfo);
 
     this.socket.emit("getinfo");
+
+    //check if we've got an invite
+    if(window.location.toString().indexOf("invite") !== -1) {
+      let splitLocation = window.location.toString().split("/")
+      this.setState({
+        inviteId: splitLocation[splitLocation.length - 1]
+      })
+    }
   }
 
   setInfo(info) {
@@ -127,6 +138,12 @@ class App extends React.Component {
     window.localStorage.removeItem("token");
   }
 
+  closeInvite() {
+    this.setState({
+      inviteId: ""
+    })
+  }
+
   render() {
     return (
       <SocketContext.Provider value={this.socket}> {/* We need this to pass the socket down to child components */}
@@ -137,6 +154,7 @@ class App extends React.Component {
               {!this.state.isConnected && <AppLoading/>}
               {this.state.isConnected && this.state.hasLoggedIn && <div className="App-app">
                 <PlanetSidebar/>
+                {this.state.inviteId !== "" && <Invite id={this.state.inviteId} close={this.closeInvite}/>} 
                 {this.state.chat.planet._id && <ChannelSidebar planetId={this.state.chat.planet._id}/>}
                 <MessageArea/>  
               </div>}
