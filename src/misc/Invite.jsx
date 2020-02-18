@@ -36,12 +36,15 @@ class Invite extends React.Component {
 
   render() {
     return (
-      <div className="Invite">
-        {this.state.planet && <div>
-          <div className="Invite-header">You've been invited to</div>
-          <div className="Invite-planet">{this.state.planet.name}</div>
-          <div className="Invite-join" onClick={this.joinPlanet}>Join</div>
-        </div>}
+      <div>
+        <div className="fullscreen-close-semi" onClick={this.props.close}/>
+        <div className="Invite">
+          {this.state.planet && <div>
+            <div className="Invite-header">You've been invited to</div>
+            <div className="Invite-planet">{this.state.planet.name}</div>
+            <div className="Invite-join button" onClick={this.joinPlanet}>Join</div>
+          </div>}
+        </div>
       </div>
     )
   }

@@ -77,3 +77,8 @@
 .ChannelSidebar-channels-list {
   margin-top: 0.3rem;
 }
+
+.ChannelSidebar-header-invite {
+  font-size: 1rem;
+  padding-left: 0.25rem;
+}

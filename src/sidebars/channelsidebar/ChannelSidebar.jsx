@@ -28,6 +28,7 @@ class ChannelSidebar extends React.Component {
     this.updateChannel = this.updateChannel.bind(this);
     this.getInvite = this.getInvite.bind(this);
     this.recvInvite = this.recvInvite.bind(this);
+    this.onClickToCopy = this.onClickToCopy.bind(this);
   }
 
   componentDidMount() {
@@ -85,14 +86,31 @@ class ChannelSidebar extends React.Component {
   }
 
   recvInvite(inviteId) {
-    this.setState({
-      invite: window.location.origin + "/invite/" + inviteId
-    })
+    try {
+      navigator.clipboard.write(window.location.origin + "/invite/" + inviteId).catch(() => {
+        //we're probably using firefox (or in an non-secure context)
+        this.setState({
+          invite: window.location.origin + "/invite/" + inviteId
+        })
+      })
+    } catch (e) {
+      //we don't have navigator.clipboard
+      this.setState({
+        invite: window.location.origin + "/invite/" + inviteId
+      })
+    }
   }
 
   getInvite(planetId) {
     console.log("a")
     this.context.emit("getinvite", planetId)
+  }
+
+  onClickToCopy() {
+    copy(this.state.invite)
+    this.setState({
+      invite: ""
+    })
   }
 
   render() {
@@ -105,7 +123,7 @@ class ChannelSidebar extends React.Component {
                 <div className="ChannelSidebar-header-planet">
                   {planet._id ? planet.name : "What?"} 
                   {user._id === planet.userId && <FontAwesomeIcon className="ChannelSidebar-header-invite" icon={faUserPlus} onClick={() => this.getInvite(planet._id)}/>} 
-                  {this.state.invite !== "" && <div className="ChannelSidebar-header-user selectable">{this.state.invite}</div>}
+                  {this.state.invite !== "" && <div className="ChannelSidebar-header-user selectable" onClick={this.onClickToCopy}>Link created. Click to copy. <a href="https://developer.mozilla.org/en-US/docs/Web/API/Clipboard">Why?</a></div>}
                 </div>
                 <div className="ChannelSidebar-header-user">{planet._id ? user.username : "No planet selected"}</div>
               </div>
