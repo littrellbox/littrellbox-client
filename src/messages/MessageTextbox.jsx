@@ -1,9 +1,12 @@
 import React from 'react';
 import TextareaAutosize from 'react-textarea-autosize';
-
 import './css/MessageTextbox.css'
+import 'emoji-mart/css/emoji-mart.css'
 import ChatContext from '../contexts/chatContext';
 import SocketContext from '../contexts/socketContext';
+import { Picker } from 'emoji-mart';
+import { FontAwesomeIcon } from '@fortawesome/react-fontawesome'
+import { faSmile } from '@fortawesome/free-solid-svg-icons'
 
 class MessageTextbox extends React.Component {
   constructor(props) {
@@ -12,12 +15,15 @@ class MessageTextbox extends React.Component {
     this.state = {
       textboxText: "",
       shiftKeyDown: false,
+      showPicker: false
     }
 
     this.handleKeyDown = this.handleKeyDown.bind(this);
     this.handleKeyPress = this.handleKeyPress.bind(this);
     this.handleKeyUp = this.handleKeyUp.bind(this);
     this.onChange = this.onChange.bind(this);
+    this.onSelect = this.onSelect.bind(this);
+    this.showPicker = this.showPicker.bind(this);
   }
 
   handleKeyPress(e, channel) {
@@ -45,6 +51,19 @@ class MessageTextbox extends React.Component {
     this.setState({textboxText: e.target.value});
   }
 
+  onSelect(emoji) {
+    console.log(emoji.id);
+    this.setState({
+      textboxText: this.state.textboxText + " :" + emoji.id + ":"
+    })
+  }
+
+  showPicker() {
+    this.setState({
+      showPicker: !this.state.showPicker
+    })
+  }
+
   render() {
     return (
       <ChatContext.Consumer>
@@ -62,6 +81,19 @@ class MessageTextbox extends React.Component {
                 onKeyUp={this.handleKeyUp}
                 onKeyPress={(e) => this.handleKeyPress(e, channel._id)}
               />
+              <div className="fullscreen-close" onClick={this.showPicker}/>
+              <div className="MessageTextbox-picker-button" onClick={this.showPicker}><FontAwesomeIcon className="MessageTextbox-picker-button" icon={faSmile}/></div>
+              {this.state.showPicker && <Picker
+                style={{
+                  position: "absolute",
+                  top: '-23rem',
+                  right: '0rem',
+                  zIndex: 10
+                }}
+                set="twitter"
+                showPreview={false}
+                onSelect={this.onSelect}
+              />}
             </div>
           )
         }}

@@ -12,8 +12,6 @@ import PlanetSidebar from './sidebars/planetsidebar/PlanetSidebar';
 import ChannelSidebar from './sidebars/channelsidebar/ChannelSidebar';
 import MessageArea from './messages/MessageArea';
 
-const uri = 'http://localhost:3001'
-
 class App extends React.Component {
   constructor(props) {
     super(props)
@@ -32,7 +30,7 @@ class App extends React.Component {
     }
 
     //create the socket
-    this.socket = socketClient(uri)
+    this.socket = socketClient(window.serverURL)
 
     this.logout = this.logout.bind(this)
     this.onConnect = this.onConnect.bind(this)

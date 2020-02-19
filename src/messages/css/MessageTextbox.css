@@ -5,6 +5,8 @@
   color: #cccccc;
   margin: 1rem;
   margin-top: auto;
+  display: flex;
+  position: relative;
 }
 
 .MessageTextbox-textbox {
@@ -19,4 +21,14 @@
   font-family: -apple-system, BlinkMacSystemFont, 'Segoe UI', 'Roboto', 'Oxygen',
     'Ubuntu', 'Cantarell', 'Fira Sans', 'Droid Sans', 'Helvetica Neue',
     sans-serif;
+}
+
+.MessageTextbox-picker-button {
+  color: #ffff99;
+  padding-left: 0.25rem;
+}
+
+.emoji-mart-preview {
+  height: 0px !important;
+  display: none !important;
 }

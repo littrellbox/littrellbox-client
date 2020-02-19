@@ -26,7 +26,7 @@ class MessageList extends React.Component {
   componentDidUpdate(prevProps) {
     if(this.props.channelId !== prevProps.channelId) {
       this.setState({
-        messages: {}
+        messages: []
       })
       this.context.emit("getmessages", this.props.channelId);
     }
@@ -36,7 +36,7 @@ class MessageList extends React.Component {
     let messagesArray = this.state.messages
     let messageCount = this.state.messageCount
     messages.forEach(message => {
-      if(messagesArray[0] && messagesArray[messagesArray.length - 1].userId == message.userId) {
+      if(messagesArray[0] && messagesArray[messagesArray.length - 1].userId === message.userId) {
         messagesArray[messagesArray.length - 1].messages.push(message)
       } else {
         //create new message object
@@ -64,7 +64,7 @@ class MessageList extends React.Component {
   recvMessage(messageId, message) {
     let messagesArray = this.state.messages
     let messageCount = this.state.messageCount
-    if(messagesArray[0] && messagesArray[messagesArray.length - 1].userId == message.userId) {
+    if(messagesArray[0] && messagesArray[messagesArray.length - 1].userId === message.userId) {
       messagesArray[messagesArray.length - 1].messages.push(message)
     } else {
       //create new message object
@@ -89,6 +89,7 @@ class MessageList extends React.Component {
   }
 
   render() {
+    console.log(this.state.messages)
     return (
       <ScrollableFeed className="MessageList">
           {this.state.messages.map((messages) => (<Message key={messages.key} messages={messages}/>))}
