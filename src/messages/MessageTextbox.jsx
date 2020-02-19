@@ -81,7 +81,7 @@ class MessageTextbox extends React.Component {
                 onKeyUp={this.handleKeyUp}
                 onKeyPress={(e) => this.handleKeyPress(e, channel._id)}
               />
-              <div className="fullscreen-close" onClick={this.showPicker}/>
+              {this.state.showPicker && <div className="fullscreen-close" onClick={this.showPicker}/>}
               <div className="MessageTextbox-picker-button" onClick={this.showPicker}><FontAwesomeIcon className="MessageTextbox-picker-button" icon={faSmile}/></div>
               {this.state.showPicker && <Picker
                 style={{

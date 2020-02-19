@@ -61,7 +61,7 @@ class Login extends React.Component {
       registrationObject.inviteCode = this.state.inviteCode
     }
 
-    axios.post(`http://localhost:3001/auth/register`, registrationObject).then((response) => {
+    axios.post(window.serverURL + `/auth/register`, registrationObject).then((response) => {
       window.localStorage.setItem('token', response.data.user.token);
       this.context.emit('authenticate', response.data.user.token);
     }).catch((response) => {
@@ -98,7 +98,7 @@ class Login extends React.Component {
       })
       return;
     } 
-    axios.post(`http://localhost:3001/auth/login`, {
+    axios.post(window.serverURL + `/auth/login`, {
       username: this.state.username,
       password: this.state.password
     }).then((response) => {
