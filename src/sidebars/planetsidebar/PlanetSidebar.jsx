@@ -25,7 +25,15 @@ class PlanetSidebar extends React.Component {
     this.setState({
       planets: {}
     })
-    this.context.emit('getallplanets');
+    if(this.props.allowPlanets) {
+      this.context.emit('getallplanets');
+    }
+  }
+
+  componentDidUpdate(prevProps) {
+    if(this.props.allowPlanets && !prevProps.allowPlanets) {
+      this.context.emit('getallplanets');
+    }
   }
 
   onClick(e) {

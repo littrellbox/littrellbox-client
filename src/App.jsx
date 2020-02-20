@@ -28,7 +28,10 @@ class App extends React.Component {
         logout: this.logout.bind(this)
       },
       info: {},
-      inviteId: ""
+      inviteId: "",
+      allowPlanets: false,
+      allowChannels: false,
+      allowMessages: false,
     }
 
     //create the socket
@@ -45,6 +48,9 @@ class App extends React.Component {
     this.setChannel = this.setChannel.bind(this)
     this.setInfo = this.setInfo.bind(this)
     this.closeInvite = this.closeInvite.bind(this)
+    this.allowMessages = this.allowMessages.bind(this)
+    this.allowChannels = this.allowChannels.bind(this)
+    this.allowPlanets = this.allowPlanets.bind(this)
   }
 
   componentDidMount() {
@@ -59,7 +65,9 @@ class App extends React.Component {
     this.socket.on("setchannel", this.setChannel);
     this.socket.on("setinfo", this.setInfo);
 
-    this.socket.emit("getinfo");
+    this.socket.on("acceptingPlanets", this.allowPlanets);
+    this.socket.on("acceptingChannels", this.allowChannels);
+    this.socket.on("acceptingMessages", this.allowMessages);
 
     //check if we've got an invite
     if(window.location.toString().indexOf("invite") !== -1) {
@@ -88,6 +96,7 @@ class App extends React.Component {
   setPlanet(document) {
     let chat = this.state.chat;
     chat.planet = document;
+    chat.channel = {}
     this.setState({
       chat: chat
     })
@@ -118,7 +127,8 @@ class App extends React.Component {
       isConnected: true
     })
     if(window.localStorage.getItem('token')) {
-      this.socket.emit("authenticate", window.localStorage.getItem("token"))
+      this.socket.emit("getinfo");
+      this.socket.emit("authenticate", window.localStorage.getItem("token"));
     }
   }
 
@@ -126,6 +136,9 @@ class App extends React.Component {
     this.setState({
       hasLoggedIn: false,
       isConnected: false,
+      allowPlanets: false,
+      allowChannels: false,
+      allowMessages: false,
       chat: {
         planet: {},
         channel: {},
@@ -133,13 +146,17 @@ class App extends React.Component {
       }
     })
     if(this.socket.io.connecting.indexOf(this.socket) === -1){
-      navigator.refresh();
+      //you should renew token or do another important things before reconnecting
+      this.socket.connect();
     }
   }
 
   logout() {
     this.setState({
-      hasLoggedIn: false
+      hasLoggedIn: false,
+      allowPlanets: false,
+      allowChannels: false,
+      allowMessages: false
     })
     this.user = null;
     this.socket.emit("logout")
@@ -149,6 +166,24 @@ class App extends React.Component {
   closeInvite() {
     this.setState({
       inviteId: ""
+    })
+  }
+
+  allowPlanets() {
+    this.setState({
+      allowPlanets: true
+    })
+  }
+
+  allowChannels() {
+    this.setState({
+      allowChannels: true
+    })
+  }
+
+  allowMessages() {
+    this.setState({
+      allowMessages: true
     })
   }
 
@@ -162,11 +197,11 @@ class App extends React.Component {
                 {this.state.isConnected && !this.state.hasLoggedIn && <Login needsInvite={this.state.info.inviteCodeReq}/>}
                 {!this.state.isConnected && <AppLoading/>}
                 {this.state.isConnected && this.state.hasLoggedIn && <div className="App-app">
-                  <PlanetSidebar/>
+                  <PlanetSidebar allowPlanets={this.state.allowPlanets}/>
                   <MOTD/>
                   {this.state.inviteId !== "" && <Invite id={this.state.inviteId} close={this.closeInvite}/>} 
-                  {this.state.chat.planet._id && <ChannelSidebar planetId={this.state.chat.planet._id}/>}
-                  <MessageArea/>  
+                  {this.state.chat.planet._id && <ChannelSidebar allowChannels={this.state.allowChannels} planetId={this.state.chat.planet._id}/>}
+                  <MessageArea allowMessages={this.state.allowMessages}/>  
                 </div>}
               </div>
             </InfoContext.Provider>

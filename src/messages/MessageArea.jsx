@@ -16,7 +16,7 @@ class MessageArea extends React.Component {
             {channel._id ? (
               <div className="MessageArea-channel">
                 <ChannelHeader channel={channel}/>
-                <MessageList channelId={channel._id}/>
+                <MessageList channelId={channel._id} allowMessages={this.props.allowMessages}/>
                 <MessageTextbox/>
               </div>
             ) : (

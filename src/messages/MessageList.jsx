@@ -20,7 +20,9 @@ class MessageList extends React.Component {
   componentDidMount() {
     this.context.on("recvbatchmessage", this.recvBatchMessages)
     this.context.on("updatemessage", this.recvMessage)
-    this.context.emit("getmessages", this.props.channelId);
+    if(this.props.allowMessages) {
+      this.context.emit("getmessages", this.props.channelId);
+    }
   }
 
   componentDidUpdate(prevProps) {
@@ -28,6 +30,9 @@ class MessageList extends React.Component {
       this.setState({
         messages: []
       })
+      this.context.emit("getmessages", this.props.channelId);
+    }
+    if(this.props.allowMessages && !prevProps.allowMessages) {
       this.context.emit("getmessages", this.props.channelId);
     }
   }

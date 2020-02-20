@@ -38,7 +38,9 @@ class ChannelSidebar extends React.Component {
     this.setState({
       channels: {}
     })
-    this.context.emit('getallchannels', this.props.planetId);
+    if(this.props.allowChannels) {
+      this.context.emit('getallchannels', this.props.planetId);
+    }
   }
 
   componentDidUpdate(prevProps) {
@@ -46,7 +48,13 @@ class ChannelSidebar extends React.Component {
       this.setState({
         channels: {}
       })
-      this.context.emit('getallchannels', this.props.planetId)
+      if(this.props.allowChannels) {
+        this.context.emit('getallchannels', this.props.planetId)
+      }
+    }
+
+    if(this.props.allowChannels && !prevProps.allowChannels) {
+      this.context.emit('getallchannels', this.props.planetId);
     }
   }
 
