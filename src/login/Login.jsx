@@ -52,6 +52,13 @@ class Login extends React.Component {
       return;
     }
 
+    if(!(/^[A-Za-z0-9]+$/.test(this.state.username))) {
+      this.setState({
+        error: "You can only use alphanumeric characters in your username. (A-z 0-9)"
+      })
+      return;
+    }
+
     let registrationObject = {
       username: this.state.username,
       email: this.state.email,
