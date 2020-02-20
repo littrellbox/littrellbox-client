@@ -1,5 +1,5 @@
-import React from 'react'
-import './css/ChannelHeader.css'
+import React from 'react';
+import './css/ChannelHeader.css';
 
 class ChannelHeader extends React.Component {
   render() {
@@ -10,8 +10,8 @@ class ChannelHeader extends React.Component {
           <div className="ChannelHeader-topic">(no topic)</div>
         </div>
       </div>
-    )
+    );
   }
 }
 
-export default ChannelHeader
+export default ChannelHeader;

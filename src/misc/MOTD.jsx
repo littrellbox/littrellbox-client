@@ -1,5 +1,5 @@
-import React from 'react'
-import './css/MOTD.css'
+import React from 'react';
+import './css/MOTD.css';
 import SocketContext from '../contexts/socketContext';
 import ReactMarkdown from 'react-markdown';
 
@@ -10,27 +10,27 @@ class MOTD extends React.Component {
     this.state = {
       planet: null,
       MOTD: ""
-    }
+    };
 
     this.close = this.close.bind(this);
     this.recvMOTD = this.recvMOTD.bind(this);
   }
 
   componentDidMount() {
-    this.context.on("recvmotd", this.recvMOTD)
+    this.context.on("recvmotd", this.recvMOTD);
   }
 
   recvMOTD(MOTD) {
-    console.log(MOTD.toString())
+    console.log(MOTD.toString());
     this.setState({
       MOTD
-    })
+    });
   }
 
   close() {
     this.setState({
       MOTD: ""
-    })
+    });
   }
 
   render() {
@@ -45,10 +45,10 @@ class MOTD extends React.Component {
           </div>
         </div>}
       </div>
-    )
+    );
   }
 }
 
-MOTD.contextType = SocketContext
+MOTD.contextType = SocketContext;
 
-export default MOTD
+export default MOTD;

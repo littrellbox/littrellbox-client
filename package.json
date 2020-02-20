@@ -32,7 +32,44 @@
     "eject": "react-scripts eject"
   },
   "eslintConfig": {
-    "extends": "react-app"
+    "extends": "react-app",
+    "rules": {
+      "jsx-quotes": [
+        "error",
+        "prefer-double"
+      ],
+      "curly": [
+        "error",
+        "multi-line"
+      ],
+      "eqeqeq": [
+        "error",
+        "always"
+      ],
+      "no-invalid-this": [
+        "error"
+      ],
+      "array-bracket-spacing": [
+        "error",
+        "never"
+      ],
+      "block-spacing": [
+        "error",
+        "never"
+      ],
+      "brace-style": [
+        "error",
+        "1tbs",
+        {
+          "allowSingleLine": true
+        }
+      ],
+      "semi": [
+        "error",
+        "always"
+      ],
+      "no-var": "error"
+    }
   },
   "browserslist": {
     "production": [

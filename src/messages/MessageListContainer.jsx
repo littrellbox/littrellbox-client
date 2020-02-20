@@ -6,8 +6,8 @@ class MessageListContainer extends React.Component {
   render() {
     return (<div>
       {Object.entries(this.props.messages).map((message) => (<Message key={message[0]} message={message[1]}/>))}
-    </div>)
+    </div>);
   }
 }
 
-export default autoscroll(MessageListContainer)
+export default autoscroll(MessageListContainer);

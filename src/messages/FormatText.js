@@ -1,6 +1,6 @@
-import escapeHtml from 'escape-html'
-import twemoji from 'twemoji'
-import EmojiConvertor from 'emoji-js'
+import escapeHtml from 'escape-html';
+import twemoji from 'twemoji';
+import EmojiConvertor from 'emoji-js';
 
 let emoji = new EmojiConvertor();
 emoji.init_env();

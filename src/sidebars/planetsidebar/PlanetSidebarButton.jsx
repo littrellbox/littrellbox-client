@@ -1,6 +1,6 @@
-import React from 'react'
-import './css/PlanetSidebarButton.css'
-import SocketContext from '../../contexts/socketContext'
+import React from 'react';
+import './css/PlanetSidebarButton.css';
+import SocketContext from '../../contexts/socketContext';
 
 class PlanetSidebarButton extends React.Component {
   constructor(props) {
@@ -10,7 +10,7 @@ class PlanetSidebarButton extends React.Component {
   }
 
   onClick() {
-    this.context.emit("openplanet", this.props.planet._id)
+    this.context.emit("openplanet", this.props.planet._id);
   }
 
   render() {
@@ -18,10 +18,10 @@ class PlanetSidebarButton extends React.Component {
       <div className="PlanetSidebarButton" onClick={this.onClick}>
         {this.props.planet.name}
       </div>
-    )
+    );
   }
 }
 
-PlanetSidebarButton.contextType = SocketContext
+PlanetSidebarButton.contextType = SocketContext;
 
-export default PlanetSidebarButton
+export default PlanetSidebarButton;

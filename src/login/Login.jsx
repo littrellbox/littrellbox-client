@@ -1,11 +1,11 @@
 import React from 'react';
 import axios from 'axios';
-import SocketContext from '../contexts/socketContext'
+import SocketContext from '../contexts/socketContext';
 import './css/Login.css';
 
 class Login extends React.Component {
   constructor(props) {
-    super(props)
+    super(props);
     
     this.state = {
       isRegistering: false,
@@ -14,48 +14,48 @@ class Login extends React.Component {
       email: "",
       inviteCode: "",
       error: "",
-    }
+    };
 
-    this.switchMode = this.switchMode.bind(this)
-    this.login = this.login.bind(this)
-    this.register = this.register.bind(this)
-    this.changeUsername = this.changeUsername.bind(this)
-    this.changePassword = this.changePassword.bind(this)
-    this.changeEmail = this.changeEmail.bind(this)
-    this.changeCode = this.changeCode.bind(this)
+    this.switchMode = this.switchMode.bind(this);
+    this.login = this.login.bind(this);
+    this.register = this.register.bind(this);
+    this.changeUsername = this.changeUsername.bind(this);
+    this.changePassword = this.changePassword.bind(this);
+    this.changeEmail = this.changeEmail.bind(this);
+    this.changeCode = this.changeCode.bind(this);
   }
 
   switchMode() {
     this.setState({
       error: "",
       isRegistering: !this.state.isRegistering
-    })
+    });
   }
 
   register() {
     if(this.state.username === "") {
       this.setState({
         error: "Username required."
-      })
+      });
       return;
     } 
     if(this.state.email === "") {
       this.setState({
         error: "Email required."
-      })
+      });
       return;
     } 
     if(this.state.password === "") {
       this.setState({
         error: "Password required."
-      })
+      });
       return;
     }
 
     if(!(/^[A-Za-z0-9]+$/.test(this.state.username))) {
       this.setState({
         error: "You can only use alphanumeric characters in your username. (A-z 0-9)"
-      })
+      });
       return;
     }
 
@@ -63,9 +63,9 @@ class Login extends React.Component {
       username: this.state.username,
       email: this.state.email,
       password: this.state.password
-    }
+    };
     if(this.props.needsInvite) {
-      registrationObject.inviteCode = this.state.inviteCode
+      registrationObject.inviteCode = this.state.inviteCode;
     }
 
     axios.post(window.serverURL + `/auth/register`, registrationObject).then((response) => {
@@ -75,34 +75,34 @@ class Login extends React.Component {
       if(response.toString().indexOf("401") !== -1) {
         this.setState({
           error: "That username is taken."
-        })
+        });
       } else if (response.toString().indexOf("422") !== -1) {
         this.setState({
           error: "That email is already being used."
-        })
+        });
       } else if (response.toString().indexOf("403") !== -1) {
         this.setState({
           error: "Invalid invite code."
-        })
+        });
       } else {
         this.setState({
           error: "An error occured creating your account.\nPlease try again later."
-        })
+        });
       }
-    })
+    });
   }
 
   login() {
     if(this.state.username === "") {
       this.setState({
         error: "Username required."
-      })
+      });
       return;
     } 
     if(this.state.password === "") {
       this.setState({
         error: "Password required."
-      })
+      });
       return;
     } 
     axios.post(window.serverURL + `/auth/login`, {
@@ -110,42 +110,42 @@ class Login extends React.Component {
       password: this.state.password
     }).then((response) => {
       window.localStorage.setItem('token', response.data.user.token);
-      this.context.emit('authenticate', response.data.user.token)
+      this.context.emit('authenticate', response.data.user.token);
     }).catch((response) => {
       if(response.toString().indexOf("400") !== -1) {
         this.setState({
           error: "Incorrect username or password."
-        })
+        });
       } else {
         this.setState({
           error: "An error occured logging into your account.\nPlease try again later."
-        })
+        });
       }
-    })
+    });
   }
 
   changeUsername(e) {
     this.setState({
       username: e.target.value
-    })
+    });
   }
 
   changeEmail(e) {
     this.setState({
       email: e.target.value
-    })
+    });
   }
 
   changeCode(e) {
     this.setState({
       inviteCode: e.target.value
-    })
+    });
   }
 
   changePassword(e) {
     this.setState({
       password: e.target.value
-    })
+    });
   }
 
   render() {
@@ -169,10 +169,10 @@ class Login extends React.Component {
           </div>
         </div>
       </div>
-    )
+    );
   }
 }
 
-Login.contextType = SocketContext
+Login.contextType = SocketContext;
 
 export default Login;

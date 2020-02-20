@@ -1,17 +1,17 @@
-import React from 'react'
-import './css/PlanetSidebar.css'
-import SocketContext from '../../contexts/socketContext'
-import PlanetSidebarButton from './PlanetSidebarButton'
+import React from 'react';
+import './css/PlanetSidebar.css';
+import SocketContext from '../../contexts/socketContext';
+import PlanetSidebarButton from './PlanetSidebarButton';
 
 class PlanetSidebar extends React.Component {
   constructor(props) {
-    super(props)
+    super(props);
 
     this.state = {
       planets: {},
       showingTextbox: false,
       textboxText: ""
-    }
+    };
 
     this.updatePlanet = this.updatePlanet.bind(this);
     this.setTextboxValue = this.setTextboxValue.bind(this);
@@ -24,7 +24,7 @@ class PlanetSidebar extends React.Component {
     this.context.on('updateplanet', this.updatePlanet);
     this.setState({
       planets: {}
-    })
+    });
     if(this.props.allowPlanets) {
       this.context.emit('getallplanets');
     }
@@ -37,7 +37,7 @@ class PlanetSidebar extends React.Component {
   }
 
   onClick(e) {
-    e.stopPropagation()
+    e.stopPropagation();
   }
 
   onKeyDown(e) {
@@ -46,14 +46,14 @@ class PlanetSidebar extends React.Component {
       this.setState({
         textboxText: "",
         showingTextbox: false,
-      })
+      });
     }
   }
 
   setTextboxValue(e) {
     this.setState({
       textboxText: e.target.value
-    })
+    });
   }
 
   updatePlanet(planetId, planet) {
@@ -61,13 +61,13 @@ class PlanetSidebar extends React.Component {
     planetArray[planetId] = planet;
     this.setState({
       planets: planetArray
-    })
+    });
   }
 
   showCreatePlanet() {
     this.setState({
       showingTextbox: !this.state.showingTextbox
-    })
+    });
     //this.context.emit('createplanet', "test")
   }
 
@@ -81,10 +81,10 @@ class PlanetSidebar extends React.Component {
           <input type="text" value={this.state.textboxText} onClick={this.onClick} onKeyDown={this.onKeyDown} onChange={this.setTextboxValue} className={this.state.showingTextbox ? "PlanetSidebarButton-textbox PlanetSidebarButton-textbox-post" : "PlanetSidebarButton-textbox"}/>
         </div>  
       </div>
-    )
+    );
   }
 }
 
-PlanetSidebar.contextType = SocketContext
+PlanetSidebar.contextType = SocketContext;
 
-export default PlanetSidebar
+export default PlanetSidebar;

@@ -1,12 +1,12 @@
 import React from 'react';
 import TextareaAutosize from 'react-textarea-autosize';
-import './css/MessageTextbox.css'
-import 'emoji-mart/css/emoji-mart.css'
+import './css/MessageTextbox.css';
+import 'emoji-mart/css/emoji-mart.css';
 import ChatContext from '../contexts/chatContext';
 import SocketContext from '../contexts/socketContext';
 import { Picker } from 'emoji-mart';
-import { FontAwesomeIcon } from '@fortawesome/react-fontawesome'
-import { faSmile } from '@fortawesome/free-solid-svg-icons'
+import { FontAwesomeIcon } from '@fortawesome/react-fontawesome';
+import { faSmile } from '@fortawesome/free-solid-svg-icons';
 
 class MessageTextbox extends React.Component {
   constructor(props) {
@@ -16,7 +16,7 @@ class MessageTextbox extends React.Component {
       textboxText: "",
       shiftKeyDown: false,
       showPicker: false
-    }
+    };
 
     this.handleKeyDown = this.handleKeyDown.bind(this);
     this.handleKeyPress = this.handleKeyPress.bind(this);
@@ -27,23 +27,22 @@ class MessageTextbox extends React.Component {
   }
 
   handleKeyPress(e, channel) {
-    if (e.key === 'Enter' && !this.state.shiftKeyDown)
-      e.preventDefault();
+    if (e.key === 'Enter' && !this.state.shiftKeyDown) {e.preventDefault();}
     if (e.key === 'Enter' && !this.state.shiftKeyDown && this.state.textboxText !== "") {
-      this.context.emit("sendmessage", this.state.textboxText, channel)
-      this.setState({textboxText: ""})
+      this.context.emit("sendmessage", this.state.textboxText, channel);
+      this.setState({textboxText: ""});
     }
   }
 
   handleKeyDown(e) {
     if (e.key === 'Shift') {
-      this.setState({shiftKeyDown: true})
+      this.setState({shiftKeyDown: true});
     }
   }
 
   handleKeyUp(e) {
     if (e.key === 'Shift') {
-      this.setState({shiftKeyDown: false})
+      this.setState({shiftKeyDown: false});
     }
   }
 
@@ -55,13 +54,13 @@ class MessageTextbox extends React.Component {
     console.log(emoji.id);
     this.setState({
       textboxText: this.state.textboxText + " :" + emoji.id + ":"
-    })
+    });
   }
 
   showPicker() {
     this.setState({
       showPicker: !this.state.showPicker
-    })
+    });
   }
 
   render() {
@@ -95,13 +94,13 @@ class MessageTextbox extends React.Component {
                 onSelect={this.onSelect}
               />}
             </div>
-          )
+          );
         }}
       </ChatContext.Consumer>
-    ) 
+    ); 
   }
 }
 
 MessageTextbox.contextType = SocketContext;
 
-export default MessageTextbox
+export default MessageTextbox;

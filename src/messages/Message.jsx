@@ -1,6 +1,6 @@
 import React from 'react';
-import './css/Message.css'
-import MessageText from './MessageText'
+import './css/Message.css';
+import MessageText from './MessageText';
 
 class Message extends React.Component {
   render() {
@@ -17,8 +17,8 @@ class Message extends React.Component {
           {this.props.messages.messages.map((message) => (<MessageText key={message._id} message={message}/>))}
         </div>
       </div>
-    )
+    );
   }
 }
 
-export default Message
+export default Message;

@@ -3,16 +3,16 @@ import SocketContext from '../../contexts/socketContext';
 import AuthContext from '../../contexts/authContext';
 import ChatContext from '../../contexts/chatContext';
 import ChannelSidebarButton from './ChannelSidebarButton';
-import { FontAwesomeIcon } from '@fortawesome/react-fontawesome'
-import { faUserPlus } from '@fortawesome/free-solid-svg-icons'
+import { FontAwesomeIcon } from '@fortawesome/react-fontawesome';
+import { faUserPlus } from '@fortawesome/free-solid-svg-icons';
 import copy from 'copy-to-clipboard';
 
-import './css/ChannelSidebar.css'
+import './css/ChannelSidebar.css';
 import InfoContext from '../../contexts/infoContext';
 
 class ChannelSidebar extends React.Component {
   constructor(props) {
-    super(props)
+    super(props);
 
     this.textInput = React.createRef();
 
@@ -21,7 +21,7 @@ class ChannelSidebar extends React.Component {
       textboxText: "",
       channels: {},
       invite: "",
-    }
+    };
 
     this.onKeyDown = this.onKeyDown.bind(this);
     this.setTextboxValue = this.setTextboxValue.bind(this);
@@ -37,7 +37,7 @@ class ChannelSidebar extends React.Component {
     this.context.on('recvinvite', this.recvInvite);
     this.setState({
       channels: {}
-    })
+    });
     if(this.props.allowChannels) {
       this.context.emit('getallchannels', this.props.planetId);
     }
@@ -47,9 +47,9 @@ class ChannelSidebar extends React.Component {
     if(this.props.planetId !== prevProps.planetId) {
       this.setState({
         channels: {}
-      })
+      });
       if(this.props.allowChannels) {
-        this.context.emit('getallchannels', this.props.planetId)
+        this.context.emit('getallchannels', this.props.planetId);
       }
     }
 
@@ -64,26 +64,26 @@ class ChannelSidebar extends React.Component {
       this.setState({
         textboxText: "",
         showingTextbox: false,
-      })
+      });
     }
     if(e.key === "Escape") {
       this.setState({
         textboxText: "",
         showingTextbox: false,
-      })
+      });
     }
   }
 
   setTextboxValue(e) {
     this.setState({
       textboxText: e.target.value
-    })
+    });
   }
 
   showTextbox() {
     this.setState({
       showingTextbox: !this.state.showingTextbox
-    })
+    });
   }
 
   updateChannel(channelId, channel) {
@@ -91,7 +91,7 @@ class ChannelSidebar extends React.Component {
     channelArray[channelId] = channel;
     this.setState({
       channel: channelArray
-    })
+    });
   }
 
   recvInvite(inviteId) {
@@ -100,26 +100,26 @@ class ChannelSidebar extends React.Component {
         //we're probably using firefox (or in an non-secure context)
         this.setState({
           invite: window.location.origin + "/invite/" + inviteId
-        })
-      })
+        });
+      });
     } catch (e) {
       //we don't have navigator.clipboard
       this.setState({
         invite: window.location.origin + "/invite/" + inviteId
-      })
+      });
     }
   }
 
   getInvite(planetId) {
-    console.log("a")
-    this.context.emit("getinvite", planetId)
+    console.log("a");
+    this.context.emit("getinvite", planetId);
   }
 
   onClickToCopy() {
-    copy(this.state.invite)
+    copy(this.state.invite);
     this.setState({
       invite: ""
-    })
+    });
   }
 
   render() {
@@ -163,7 +163,7 @@ class ChannelSidebar extends React.Component {
           )}
         </ChatContext.Consumer>)}
       </AuthContext.Consumer>
-    )
+    );
   }
 }
 

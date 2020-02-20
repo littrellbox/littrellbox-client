@@ -1,7 +1,7 @@
 import React from 'react';
 import ChatContext from '../contexts/chatContext';
 
-import './css/MessageArea.css'
+import './css/MessageArea.css';
 import ChannelHeader from './ChannelHeader';
 import MessageTextbox from './MessageTextbox';
 import MessageList from './MessageList';
@@ -28,8 +28,8 @@ class MessageArea extends React.Component {
           </div>)}
         </ChatContext.Consumer>
       </div>
-    )
+    );
   }
 }
 
-export default MessageArea
+export default MessageArea;

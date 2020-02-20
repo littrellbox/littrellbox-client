@@ -12,11 +12,11 @@ import PlanetSidebar from './sidebars/planetsidebar/PlanetSidebar';
 import ChannelSidebar from './sidebars/channelsidebar/ChannelSidebar';
 import MessageArea from './messages/MessageArea';
 import InfoContext from './contexts/infoContext';
-import MOTD from './misc/MOTD'
+import MOTD from './misc/MOTD';
 
 class App extends React.Component {
   constructor(props) {
-    super(props)
+    super(props);
 
     this.state = {
       isConnected: false, 
@@ -32,25 +32,25 @@ class App extends React.Component {
       allowPlanets: false,
       allowChannels: false,
       allowMessages: false,
-    }
+    };
 
     //create the socket
-    this.socket = socketClient(window.serverURL)
+    this.socket = socketClient(window.serverURL);
 
-    this.logout = this.logout.bind(this)
-    this.onConnect = this.onConnect.bind(this)
-    this.onDisconnect = this.onDisconnect.bind(this)
-    this.forceDeauthentication = this.forceDeauthentication.bind(this)
-    this.authentication = this.authentication.bind(this)
-    this.logout = this.logout.bind(this)
-    this.setUser = this.setUser.bind(this)
-    this.setPlanet = this.setPlanet.bind(this)
-    this.setChannel = this.setChannel.bind(this)
-    this.setInfo = this.setInfo.bind(this)
-    this.closeInvite = this.closeInvite.bind(this)
-    this.allowMessages = this.allowMessages.bind(this)
-    this.allowChannels = this.allowChannels.bind(this)
-    this.allowPlanets = this.allowPlanets.bind(this)
+    this.logout = this.logout.bind(this);
+    this.onConnect = this.onConnect.bind(this);
+    this.onDisconnect = this.onDisconnect.bind(this);
+    this.forceDeauthentication = this.forceDeauthentication.bind(this);
+    this.authentication = this.authentication.bind(this);
+    this.logout = this.logout.bind(this);
+    this.setUser = this.setUser.bind(this);
+    this.setPlanet = this.setPlanet.bind(this);
+    this.setChannel = this.setChannel.bind(this);
+    this.setInfo = this.setInfo.bind(this);
+    this.closeInvite = this.closeInvite.bind(this);
+    this.allowMessages = this.allowMessages.bind(this);
+    this.allowChannels = this.allowChannels.bind(this);
+    this.allowPlanets = this.allowPlanets.bind(this);
   }
 
   componentDidMount() {
@@ -71,18 +71,18 @@ class App extends React.Component {
 
     //check if we've got an invite
     if(window.location.toString().indexOf("invite") !== -1) {
-      let splitLocation = window.location.toString().split("/")
+      let splitLocation = window.location.toString().split("/");
       this.setState({
         inviteId: splitLocation[splitLocation.length - 1]
-      })
+      });
     }
   }
 
   setInfo(info) {
-    info.clientVersion = "0.0.3a-preview"
+    info.clientVersion = "0.0.3a-preview";
     this.setState({
       info: info
-    })
+    });
   }
 
   setChannel(document) {
@@ -90,42 +90,42 @@ class App extends React.Component {
     chat.channel = document;
     this.setState({
       chat: chat
-    })
+    });
   }
 
   setPlanet(document) {
     let chat = this.state.chat;
     chat.planet = document;
-    chat.channel = {}
+    chat.channel = {};
     this.setState({
       chat: chat
-    })
+    });
   }
 
   setUser(document) {
     this.setState({
       user: document
-    })
+    });
   }
 
   forceDeauthentication() {
     this.user = null;
     this.setState({
       hasLoggedIn: false
-    })
+    });
   }
 
   authentication(user) {
     this.user = user;
     this.setState({
       hasLoggedIn: true
-    })
+    });
   }
 
   onConnect() {
     this.setState({
       isConnected: true
-    })
+    });
     if(window.localStorage.getItem('token')) {
       this.socket.emit("getinfo");
       this.socket.emit("authenticate", window.localStorage.getItem("token"));
@@ -144,7 +144,7 @@ class App extends React.Component {
         channel: {},
         logout: this.logout.bind(this)
       }
-    })
+    });
     if(this.socket.io.connecting.indexOf(this.socket) === -1){
       //you should renew token or do another important things before reconnecting
       this.socket.connect();
@@ -157,35 +157,35 @@ class App extends React.Component {
       allowPlanets: false,
       allowChannels: false,
       allowMessages: false
-    })
+    });
     this.user = null;
-    this.socket.emit("logout")
+    this.socket.emit("logout");
     window.localStorage.removeItem("token");
   }
 
   closeInvite() {
     this.setState({
       inviteId: ""
-    })
+    });
   }
 
   allowPlanets() {
     this.setState({
       allowPlanets: true
-    })
-    this.socket.emit("getmotd")
+    });
+    this.socket.emit("getmotd");
   }
 
   allowChannels() {
     this.setState({
       allowChannels: true
-    })
+    });
   }
 
   allowMessages() {
     this.setState({
       allowMessages: true
-    })
+    });
   }
 
   render() {
@@ -209,7 +209,7 @@ class App extends React.Component {
           </ChatContext.Provider>
         </AuthContext.Provider>
       </SocketContext.Provider>
-    )
+    );
   }
 }
 

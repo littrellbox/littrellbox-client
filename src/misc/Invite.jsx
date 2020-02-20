@@ -1,5 +1,5 @@
-import React from 'react'
-import './css/Invite.css'
+import React from 'react';
+import './css/Invite.css';
 import SocketContext from '../contexts/socketContext';
 
 class Invite extends React.Component {
@@ -8,31 +8,31 @@ class Invite extends React.Component {
 
     this.state = {
       planet: null
-    }
+    };
 
     this.setInvitePlanet = this.setInvitePlanet.bind(this);
     this.joinPlanet = this.joinPlanet.bind(this);
   }
 
   componentDidMount() {
-    this.context.on("setinviteplanet", this.setInvitePlanet)
+    this.context.on("setinviteplanet", this.setInvitePlanet);
 
-    this.context.emit("getinviteplanet", this.props.id)
+    this.context.emit("getinviteplanet", this.props.id);
   }
 
   setInvitePlanet(planet) {
     if(planet) {
       this.setState({
         planet: planet[0]
-      })
+      });
     } else {
       this.props.close();
     }
   }
 
   joinPlanet() {
-    this.context.emit("joinplanet", this.state.planet._id, this.props.id)
-    this.props.close()
+    this.context.emit("joinplanet", this.state.planet._id, this.props.id);
+    this.props.close();
   }
 
   render() {
@@ -47,10 +47,10 @@ class Invite extends React.Component {
           </div>}
         </div>
       </div>
-    )
+    );
   }
 }
 
-Invite.contextType = SocketContext
+Invite.contextType = SocketContext;
 
-export default Invite
+export default Invite;

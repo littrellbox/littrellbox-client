@@ -1,5 +1,5 @@
-import React from 'react'
-import './css/AppLoading.css'
+import React from 'react';
+import './css/AppLoading.css';
 
 class AppLoading extends React.Component {
   render() {
@@ -7,8 +7,8 @@ class AppLoading extends React.Component {
       <div className="AppLoading">
         Connecting to server
       </div>
-    )
+    );
   }
 }
 
-export default AppLoading
+export default AppLoading;

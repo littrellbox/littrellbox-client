@@ -1,6 +1,6 @@
-import React from 'react'
-import './css/ChannelSidebarButton.css'
-import SocketContext from '../../contexts/socketContext'
+import React from 'react';
+import './css/ChannelSidebarButton.css';
+import SocketContext from '../../contexts/socketContext';
 
 class ChannelSidebarButton extends React.Component {
   constructor(props) {
@@ -10,7 +10,7 @@ class ChannelSidebarButton extends React.Component {
   }
 
   onClick() { 
-    this.context.emit("openchannel", this.props.channel._id)
+    this.context.emit("openchannel", this.props.channel._id);
   }
 
   render() {
@@ -18,10 +18,10 @@ class ChannelSidebarButton extends React.Component {
       <div className="ChannelSidebarButton" onClick={this.onClick}>
         {this.props.channel.name}
       </div>
-    )
+    );
   }
 }
 
-ChannelSidebarButton.contextType = SocketContext
+ChannelSidebarButton.contextType = SocketContext;
 
-export default ChannelSidebarButton
+export default ChannelSidebarButton;
