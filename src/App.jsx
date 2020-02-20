@@ -173,7 +173,7 @@ class App extends React.Component {
     this.setState({
       allowPlanets: true
     })
-    this.context.emit("getmotd")
+    this.socket.emit("getmotd")
   }
 
   allowChannels() {
