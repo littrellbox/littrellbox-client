@@ -6,6 +6,8 @@
   background-color: #333333;
   position: relative;
   transition: 0.2s;
+  display: flex;
+  flex-direction: column;
 }
 
 .ChannelSidebar-header {
@@ -84,4 +86,12 @@
   margin-bottom: auto;
   padding-left: 0.25rem;
   color: #aaaaaa;
+}
+
+.ChannelSidebar-info {
+  font-size: 0.8rem;
+  padding: 0.5rem;
+  bottom: 0;
+  background-color: #444444;
+  margin-top: auto;
 }

@@ -1,0 +1,26 @@
+.MOTD {
+  position: absolute;
+  top: 50%;
+  left: 50%;
+  transform: translate(-50%, -50%);
+  background-color: #222222;
+  padding: 1rem;
+  border-radius: 0.5rem;
+  z-index: 10;
+  max-width: 30rem;
+  max-height: 100%;
+  min-width: 30rem;
+}
+
+.MOTD-header {
+  font-size: 0.9rem;
+  color: #aaaaaa;
+}
+
+.MOTD-markdown {
+  margin-bottom: 0.5rem;
+}
+
+.MOTD-close {
+  max-width: max-content;
+}

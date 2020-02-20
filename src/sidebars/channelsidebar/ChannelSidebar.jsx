@@ -8,6 +8,7 @@ import { faUserPlus } from '@fortawesome/free-solid-svg-icons'
 import copy from 'copy-to-clipboard';
 
 import './css/ChannelSidebar.css'
+import InfoContext from '../../contexts/infoContext';
 
 class ChannelSidebar extends React.Component {
   constructor(props) {
@@ -121,7 +122,7 @@ class ChannelSidebar extends React.Component {
             <div className="ChannelSidebar">
               <div className="ChannelSidebar-header">
                 <div className="ChannelSidebar-header-planet">
-                  {planet._id ? planet.name : "What?"} 
+                  {planet._id ? planet.name : "What?"}
                   {user._id === planet.userId && <FontAwesomeIcon className="ChannelSidebar-header-invite" icon={faUserPlus} onClick={() => this.getInvite(planet._id)}/>} 
                   {this.state.invite !== "" && <div className="ChannelSidebar-header-user selectable" onClick={this.onClickToCopy}>Link created. Click to copy. <a href="https://developer.mozilla.org/en-US/docs/Web/API/Clipboard">Why?</a></div>}
                 </div>
@@ -141,6 +142,15 @@ class ChannelSidebar extends React.Component {
                   {Object.entries(this.state.channels).map((channel) => (<ChannelSidebarButton key={channel[0]} channel={channel[1]}/>))}
                 </div>
               </div>
+              <InfoContext.Consumer>
+                {(info) => (
+                  <div className="ChannelSidebar-info">
+                    Littrellbox {info.clientVersion}<br/>
+                    {info.serverType} {info.version}<br/>
+                    Found a bug? <a href={"https://docs.google.com/forms/d/e/1FAIpQLSe-oduT4RM003Qx3zke9SafjQ2apFnNj5hALFuNSql0xQ1jBg/viewform?usp=pp_url&entry.770779473=" + info.clientVersion + "&entry.1029820696=" + info.version}>Report it!</a>
+                  </div> 
+                )}
+              </InfoContext.Consumer>
             </div>
           )}
         </ChatContext.Consumer>)}

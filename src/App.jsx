@@ -11,6 +11,8 @@ import Invite from './misc/Invite';
 import PlanetSidebar from './sidebars/planetsidebar/PlanetSidebar';
 import ChannelSidebar from './sidebars/channelsidebar/ChannelSidebar';
 import MessageArea from './messages/MessageArea';
+import InfoContext from './contexts/infoContext';
+import MOTD from './misc/MOTD'
 
 class App extends React.Component {
   constructor(props) {
@@ -69,7 +71,7 @@ class App extends React.Component {
   }
 
   setInfo(info) {
-    console.log(info);
+    info.clientVersion = "0.0.3a-preview"
     this.setState({
       info: info
     })
@@ -147,16 +149,19 @@ class App extends React.Component {
       <SocketContext.Provider value={this.socket}> {/* We need this to pass the socket down to child components */}
         <AuthContext.Provider value={this.state.user}>
           <ChatContext.Provider value={this.state.chat}>
-            <div className="App">
-              {this.state.isConnected && !this.state.hasLoggedIn && <Login needsInvite={this.state.info.inviteCodeReq}/>}
-              {!this.state.isConnected && <AppLoading/>}
-              {this.state.isConnected && this.state.hasLoggedIn && <div className="App-app">
-                <PlanetSidebar/>
-                {this.state.inviteId !== "" && <Invite id={this.state.inviteId} close={this.closeInvite}/>} 
-                {this.state.chat.planet._id && <ChannelSidebar planetId={this.state.chat.planet._id}/>}
-                <MessageArea/>  
-              </div>}
-            </div>
+            <InfoContext.Provider value={this.state.info}>
+              <div className="App">
+                {this.state.isConnected && !this.state.hasLoggedIn && <Login needsInvite={this.state.info.inviteCodeReq}/>}
+                {!this.state.isConnected && <AppLoading/>}
+                {this.state.isConnected && this.state.hasLoggedIn && <div className="App-app">
+                  <PlanetSidebar/>
+                  <MOTD/>
+                  {this.state.inviteId !== "" && <Invite id={this.state.inviteId} close={this.closeInvite}/>} 
+                  {this.state.chat.planet._id && <ChannelSidebar planetId={this.state.chat.planet._id}/>}
+                  <MessageArea/>  
+                </div>}
+              </div>
+            </InfoContext.Provider>
           </ChatContext.Provider>
         </AuthContext.Provider>
       </SocketContext.Provider>

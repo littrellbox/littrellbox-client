@@ -85,3 +85,11 @@ p {
   cursor: initial;
   user-select: text;
 }
+
+a {
+  color: #9999ff
+}
+
+h1 {
+  margin: 0;
+}
