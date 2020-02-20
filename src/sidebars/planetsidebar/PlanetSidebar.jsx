@@ -43,6 +43,7 @@ class PlanetSidebar extends React.Component {
   onKeyDown(e) {
     if(e.key === "Enter") {
       this.context.emit('createplanet', this.state.textboxText);
+      this.context.emit('unsubscribefromallusers');
       this.setState({
         textboxText: "",
         showingTextbox: false,
