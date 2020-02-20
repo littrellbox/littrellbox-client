@@ -200,7 +200,7 @@ class App extends React.Component {
                 {this.state.isConnected && this.state.hasLoggedIn && <div className="App-app">
                   <PlanetSidebar allowPlanets={this.state.allowPlanets}/>
                   <MOTD/>
-                  {this.state.inviteId !== "" && <Invite id={this.state.inviteId} close={this.closeInvite}/>} 
+                  {this.state.inviteId !== "" && this.state.allowPlanets && <Invite id={this.state.inviteId} close={this.closeInvite}/>} 
                   {this.state.chat.planet._id && <ChannelSidebar allowChannels={this.state.allowChannels} planetId={this.state.chat.planet._id}/>}
                   <MessageArea allowMessages={this.state.allowMessages}/>  
                 </div>}
