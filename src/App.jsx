@@ -125,8 +125,17 @@ class App extends React.Component {
   onDisconnect() {
     this.setState({
       hasLoggedIn: false,
-      isConnected: false
+      isConnected: false,
+      chat: {
+        planet: {},
+        channel: {},
+        logout: this.logout.bind(this)
+      }
     })
+    if(this.socket.io.connecting.indexOf(this.socket) === -1){
+      //you should renew token or do another important things before reconnecting
+      this.socket.connect();
+    }
   }
 
   logout() {
