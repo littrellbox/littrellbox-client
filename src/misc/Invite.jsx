@@ -32,6 +32,7 @@ class Invite extends React.Component {
 
   joinPlanet() {
     this.context.emit("joinplanet", this.state.planet._id, this.props.id)
+    this.props.close()
   }
 
   render() {
