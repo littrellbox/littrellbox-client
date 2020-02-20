@@ -18,8 +18,6 @@ class MOTD extends React.Component {
 
   componentDidMount() {
     this.context.on("recvmotd", this.recvMOTD)
-
-    this.context.emit("getmotd")
   }
 
   recvMOTD(MOTD) {

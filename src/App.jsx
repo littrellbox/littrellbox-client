@@ -173,6 +173,7 @@ class App extends React.Component {
     this.setState({
       allowPlanets: true
     })
+    this.context.emit("getmotd")
   }
 
   allowChannels() {
