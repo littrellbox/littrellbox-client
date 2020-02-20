@@ -133,8 +133,7 @@ class App extends React.Component {
       }
     })
     if(this.socket.io.connecting.indexOf(this.socket) === -1){
-      //you should renew token or do another important things before reconnecting
-      this.socket.connect();
+      navigator.refresh();
     }
   }
 
