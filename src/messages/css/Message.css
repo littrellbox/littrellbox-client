@@ -22,5 +22,27 @@
 }
 
 .Message-container {
-  margin-left: 0.5rem;
+  margin-left: 0rem;
+}
+
+.Message-online {
+  background-color: #77dd77;
+  height: 0.75rem;
+  width: 0.75rem;
+  border-radius: 50%;
+  position: relative;
+  z-index: 1;
+  left: -0.8rem;
+  top: 1.7rem;
+}
+
+.Message-offline {
+  background-color: #555555;
+  height: 0.75rem;
+  width: 0.75rem;
+  border-radius: 50%;
+  position: relative;
+  z-index: 1;
+  left: -0.8rem;
+  top: 1.7rem;
 }

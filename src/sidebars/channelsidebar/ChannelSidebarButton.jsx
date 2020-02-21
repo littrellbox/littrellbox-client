@@ -10,6 +10,7 @@ class ChannelSidebarButton extends React.Component {
   }
 
   onClick() { 
+    this.context.emit('unsubscribefromallusers');
     this.context.emit("openchannel", this.props.channel._id);
   }
 
