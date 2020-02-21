@@ -126,8 +126,8 @@ class App extends React.Component {
     this.setState({
       isConnected: true
     });
+    this.socket.emit("getinfo");
     if(window.localStorage.getItem('token')) {
-      this.socket.emit("getinfo");
       this.socket.emit("authenticate", window.localStorage.getItem("token"));
     }
   }
