@@ -34,8 +34,8 @@ class Message extends React.Component {
     return (
       <div className="Message">
         {this.state.user._id && <div className="Message-pfp"/>}
-        {this.state.user._id && this.state.user.sessionCount >= 1 && <div className="Message-online"/>}
-        {this.state.user._id && this.state.user.sessionCount === 0 && <div className="Message-offline"/>}
+        {this.state.user._id && this.state.user.sessionServers.length >= 1 && <div className="Message-online"/>}
+        {this.state.user._id && this.state.user.sessionServers.length === 0 && <div className="Message-offline"/>}
         <div className="Message-container">
           <div className="Message-info-container">
             {this.state.user.username && <div className="Message-username">{this.props.messages.messages[0].username}</div>}
