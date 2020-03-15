@@ -6,7 +6,7 @@ import ChatContext from '../contexts/chatContext';
 import SocketContext from '../contexts/socketContext';
 import { Picker } from 'emoji-mart';
 import { FontAwesomeIcon } from '@fortawesome/react-fontawesome';
-import { faSmile } from '@fortawesome/free-solid-svg-icons';
+import { faSmile, faPaperclip } from '@fortawesome/free-solid-svg-icons';
 
 class MessageTextbox extends React.Component {
   constructor(props) {
@@ -18,12 +18,16 @@ class MessageTextbox extends React.Component {
       showPicker: false
     };
 
+    this.fileDialog = React.createRef();
+   
     this.handleKeyDown = this.handleKeyDown.bind(this);
     this.handleKeyPress = this.handleKeyPress.bind(this);
     this.handleKeyUp = this.handleKeyUp.bind(this);
     this.onChange = this.onChange.bind(this);
     this.onSelect = this.onSelect.bind(this);
     this.showPicker = this.showPicker.bind(this);
+    this.openFileDialog = this.openFileDialog.bind(this);
+    this.fileDialogOnChange = this.fileDialogOnChange.bind(this);
   }
 
   handleKeyPress(e, channel) {
@@ -63,6 +67,14 @@ class MessageTextbox extends React.Component {
     });
   }
 
+  openFileDialog() {
+    this.fileDialog.current.click();
+  }
+
+  fileDialogOnChange(e) {
+
+  }
+
   render() {
     return (
       <ChatContext.Consumer>
@@ -81,7 +93,9 @@ class MessageTextbox extends React.Component {
                 onKeyPress={(e) => this.handleKeyPress(e, channel._id)}
               />
               {this.state.showPicker && <div className="fullscreen-close" onClick={this.showPicker}/>}
+              <input type="file" onClick={this.fileDialogOnChange} ref={this.fileDialog} style={{display: "none"}}/>
               <div className="MessageTextbox-picker-button" onClick={this.showPicker}><FontAwesomeIcon className="MessageTextbox-picker-button" icon={faSmile}/></div>
+              <div className="MessageTextbox-attachment-button" onClick={this.openFileDialog}><FontAwesomeIcon className="MessageTextbox-attachment-button-icon" icon={faPaperclip}/></div>
               {this.state.showPicker && <Picker
                 style={{
                   position: "absolute",

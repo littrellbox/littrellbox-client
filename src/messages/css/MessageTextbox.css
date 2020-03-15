@@ -23,9 +23,26 @@
     sans-serif;
 }
 
-.MessageTextbox-picker-button {
-  color: #ffff99;
+.MessageTextbox-attachment-button {
+  color: #cccccc;
   padding-left: 0.25rem;
+  cursor: pointer;
+  transition: 0.2s;
+}
+
+.MessageTextbox-attachment-button:hover {
+  color: #ffffff;
+}
+
+.MessageTextbox-picker-button {
+  color: #cccccc;
+  padding-left: 0.25rem;
+  cursor: pointer;
+  transition: 0.2s;
+}
+
+.MessageTextbox-picker-button:hover {
+  color: #ffffcc;
 }
 
 .emoji-mart-preview {

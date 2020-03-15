@@ -22,6 +22,7 @@
     "react-scripts": "3.3.0",
     "react-scrollable-feed": "^1.1.2",
     "react-textarea-autosize": "^7.1.2",
+    "react-tooltip": "^4.1.2",
     "socket.io-client": "^2.3.0",
     "twemoji": "^12.1.5"
   },
