@@ -15,7 +15,8 @@ class MessageTextbox extends React.Component {
     this.state = {
       textboxText: "",
       shiftKeyDown: false,
-      showPicker: false
+      showPicker: false,
+      attachments: [],
     };
 
     this.fileDialog = React.createRef();
@@ -71,14 +72,21 @@ class MessageTextbox extends React.Component {
     this.fileDialog.current.click();
   }
 
-  fileDialogOnChange(e) {
-
+  fileDialogOnChange(e, attachmentManager) {
+    for(let i = 0; i < e.target.files.length - 1; i++) {
+      let attachmentObject = {
+        type: "file",
+        name: e.target.files[i].name,
+        data: e.target.files[i]
+      };
+      attachmentManager.addAttachmentToArray(attachmentObject);
+    }
   }
 
   render() {
     return (
       <ChatContext.Consumer>
-        {({channel}) => {
+        {({channel, attachmentManager}) => {
           return (
             <div className="MessageTextbox">
               <TextareaAutosize 
@@ -93,7 +101,7 @@ class MessageTextbox extends React.Component {
                 onKeyPress={(e) => this.handleKeyPress(e, channel._id)}
               />
               {this.state.showPicker && <div className="fullscreen-close" onClick={this.showPicker}/>}
-              <input type="file" onClick={this.fileDialogOnChange} ref={this.fileDialog} style={{display: "none"}}/>
+              <input type="file" onClick={(e) => {this.fileDialogOnChange(e, attachmentManager);}} ref={this.fileDialog} style={{display: "none"}}/>
               <div className="MessageTextbox-picker-button" onClick={this.showPicker}><FontAwesomeIcon className="MessageTextbox-picker-button" icon={faSmile}/></div>
               <div className="MessageTextbox-attachment-button" onClick={this.openFileDialog}><FontAwesomeIcon className="MessageTextbox-attachment-button-icon" icon={faPaperclip}/></div>
               {this.state.showPicker && <Picker

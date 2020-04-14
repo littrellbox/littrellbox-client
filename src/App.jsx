@@ -13,6 +13,7 @@ import ChannelSidebar from './sidebars/channelsidebar/ChannelSidebar';
 import MessageArea from './messages/MessageArea';
 import InfoContext from './contexts/infoContext';
 import MOTD from './misc/MOTD';
+import AttachmentManager from "./managers/AttachmentManager";
 
 class App extends React.Component {
   constructor(props) {
@@ -25,6 +26,7 @@ class App extends React.Component {
       chat: {
         planet: {},
         channel: {},
+        attachmentManager: new AttachmentManager(),
         logout: this.logout.bind(this)
       },
       info: {},
