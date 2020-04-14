@@ -5,12 +5,13 @@ import FileAttachmentSubManager from "./attachmentsubs/FileAttachmentSubManager"
 
 class AttachmentManager {
   constructor() {
-    //create critical arrays
+    //create critical arrays and objects
     this.attachments = [];
-    this.attachmentTypes = [];
+    this.attachmentTypes = {};
 
     //create attachment handler function array
     this.newAttachmentFunctions = [];
+    this.submitAttachmentFunctions = [];
 
     //bind class functions
     this.addDefaultAttachments = this.addDefaultAttachments.bind(this);
@@ -21,32 +22,38 @@ class AttachmentManager {
   }
 
   addDefaultAttachments() {
-    this.attachmentTypes.push({
+    this.attachmentTypes["file"] = {
       type: "file",
       friendly: "File",
       icon: faFile,
       component: FileAttachment,
       subManager: new FileAttachmentSubManager()
-    });
-    this.attachmentTypes.push({
+    };
+    this.attachmentTypes["poll"] = {
       type: "poll",
       friendly: "Poll",
       icon: faPoll,
       component: NoComponentAttachment
-    });
+    };
   }
 
   addAttachmentToArray(attachment) {
     this.attachments.push(attachment);
-    console.log(this.attachments);
-    for(let i = 0; i < this.newAttachmentFunctions.length - 1; i++) {
+    for(let i = 0; i < this.newAttachmentFunctions.length; i++) {
       this.newAttachmentFunctions[i](attachment);
     }
   }
 
-  submitAttachments(attachments) {
-    //this should return an array of Attachment objects
-    return [];
+  submitAttachments() {
+    let attachmentsFinal = [];
+    for(let i = 0; i < this.attachments.length; i++) {
+      attachmentsFinal.push(this.attachmentTypes[this.attachments[i].type].subManager.submitAttachment(this.attachments[i]));
+    }
+    this.attachments = [];
+    for(let i = 0; i < this.submitAttachmentFunctions.length; i++) {
+      this.submitAttachmentFunctions[i]();
+    }
+    return attachmentsFinal;
   }
 }
 

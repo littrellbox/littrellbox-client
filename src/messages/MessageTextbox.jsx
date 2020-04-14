@@ -7,6 +7,7 @@ import SocketContext from '../contexts/socketContext';
 import { Picker } from 'emoji-mart';
 import { FontAwesomeIcon } from '@fortawesome/react-fontawesome';
 import { faSmile, faPaperclip } from '@fortawesome/free-solid-svg-icons';
+import MessageTextboxAttachments from "./MessageTextboxAttachments";
 
 class MessageTextbox extends React.Component {
   constructor(props) {
@@ -31,10 +32,11 @@ class MessageTextbox extends React.Component {
     this.fileDialogOnChange = this.fileDialogOnChange.bind(this);
   }
 
-  handleKeyPress(e, channel) {
+  handleKeyPress(e, channel, attachmentManager) {
     if (e.key === 'Enter' && !this.state.shiftKeyDown) {e.preventDefault();}
     if (e.key === 'Enter' && !this.state.shiftKeyDown && this.state.textboxText !== "") {
       this.context.emit("sendmessage", this.state.textboxText, channel);
+      attachmentManager.submitAttachments();
       this.setState({textboxText: ""});
     }
   }
@@ -73,7 +75,10 @@ class MessageTextbox extends React.Component {
   }
 
   fileDialogOnChange(e, attachmentManager) {
-    for(let i = 0; i < e.target.files.length - 1; i++) {
+    console.log("a");
+    console.log(e.target.files);
+    for(let i = 0; i < e.target.files.length; i++) {
+      console.log("b");
       let attachmentObject = {
         type: "file",
         name: e.target.files[i].name,
@@ -89,32 +94,37 @@ class MessageTextbox extends React.Component {
         {({channel, attachmentManager}) => {
           return (
             <div className="MessageTextbox">
-              <TextareaAutosize 
-                className="MessageTextbox-textbox" 
-                rows="1" 
-                tabIndex="1" 
-                placeholder={"Message #" + channel.name} 
-                value={this.state.textboxText} 
-                onChange={this.onChange}
-                onKeyDown={this.handleKeyDown}
-                onKeyUp={this.handleKeyUp}
-                onKeyPress={(e) => this.handleKeyPress(e, channel._id)}
-              />
-              {this.state.showPicker && <div className="fullscreen-close" onClick={this.showPicker}/>}
-              <input type="file" onClick={(e) => {this.fileDialogOnChange(e, attachmentManager);}} ref={this.fileDialog} style={{display: "none"}}/>
-              <div className="MessageTextbox-picker-button" onClick={this.showPicker}><FontAwesomeIcon className="MessageTextbox-picker-button" icon={faSmile}/></div>
-              <div className="MessageTextbox-attachment-button" onClick={this.openFileDialog}><FontAwesomeIcon className="MessageTextbox-attachment-button-icon" icon={faPaperclip}/></div>
-              {this.state.showPicker && <Picker
-                style={{
-                  position: "absolute",
-                  top: '-23rem',
-                  right: '0rem',
-                  zIndex: 10
-                }}
-                set="twitter"
-                showPreview={false}
-                onSelect={this.onSelect}
-              />}
+              <div className="MessageTextbox-container">
+                <TextareaAutosize
+                  className="MessageTextbox-textbox"
+                  rows="1"
+                  tabIndex="1"
+                  placeholder={"Message #" + channel.name}
+                  value={this.state.textboxText}
+                  onChange={this.onChange}
+                  onKeyDown={this.handleKeyDown}
+                  onKeyUp={this.handleKeyUp}
+                  onKeyPress={(e) => this.handleKeyPress(e, channel._id, attachmentManager)}
+                />
+                {this.state.showPicker && <div className="fullscreen-close" onClick={this.showPicker}/>}
+                <input type="file" onChange={(e) => {this.fileDialogOnChange(e, attachmentManager);}} ref={this.fileDialog} style={{display: "none"}}/>
+                <div className="MessageTextbox-picker-button" onClick={this.showPicker}><FontAwesomeIcon className="MessageTextbox-picker-button" icon={faSmile}/></div>
+                <div className="MessageTextbox-attachment-button" onClick={this.openFileDialog}><FontAwesomeIcon className="MessageTextbox-attachment-button-icon" icon={faPaperclip}/></div>
+                {this.state.showPicker && <Picker
+                  style={{
+                    position: "absolute",
+                    top: '-23rem',
+                    right: '0rem',
+                    zIndex: 10
+                  }}
+                  set="twitter"
+                  showPreview={false}
+                  onSelect={this.onSelect}
+                />}
+              </div>
+              <div className={"MessageTextbox-attachments"}>
+                <MessageTextboxAttachments attachmentManager={attachmentManager}/>
+              </div>
             </div>
           );
         }}

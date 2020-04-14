@@ -42,13 +42,12 @@
 }*/
 
 .ChannelSidebar-channels-header {
-  padding-left: 0.45rem;
-  padding-top: 0.45rem;
-  padding-right: 0.55rem;
+  padding: 0.45rem 0.55rem 0 0.45rem;
   text-transform: uppercase;
   font-weight: bold;
   background-color: #333333;
   display: flex;
+  font-size: 0.9rem;
 }
 
 .ChannelSidebar-channels-header-new {

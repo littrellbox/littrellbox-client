@@ -144,6 +144,7 @@ class App extends React.Component {
       chat: {
         planet: {},
         channel: {},
+        attachmentManager: new AttachmentManager(),
         logout: this.logout.bind(this)
       }
     });

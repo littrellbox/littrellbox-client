@@ -1,0 +1,16 @@
+.MessageTextboxAttachments-icon {
+  display: inline-block;
+  font-size: 0.9rem;
+}
+
+.MessageTextboxAttachments-name {
+  display: inline-block;
+  padding-left: 0.2rem;
+  font-size: 0.9rem;
+  font-weight: bold;
+}
+
+.MessageTextboxAttachments-attachment {
+  display: inline-block;
+  margin-right: 0.5rem;
+}

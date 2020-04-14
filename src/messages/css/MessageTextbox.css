@@ -5,6 +5,9 @@
   color: #cccccc;
   margin: 1rem;
   margin-top: auto;
+}
+
+.MessageTextbox-container {
   display: flex;
   position: relative;
 }
