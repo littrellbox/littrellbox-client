@@ -38,6 +38,7 @@ class AttachmentManager {
 
   addAttachmentToArray(attachment) {
     this.attachments.push(attachment);
+    console.log(this.attachments);
     for(let i = 0; i < this.newAttachmentFunctions.length - 1; i++) {
       this.newAttachmentFunctions[i](attachment);
     }
