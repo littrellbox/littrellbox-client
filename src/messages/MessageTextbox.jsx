@@ -36,7 +36,6 @@ class MessageTextbox extends React.Component {
     if (e.key === 'Enter' && !this.state.shiftKeyDown) {e.preventDefault();}
     if (e.key === 'Enter' && !this.state.shiftKeyDown && this.state.textboxText !== "") {
       this.context.emit("sendmessage", this.state.textboxText, channel);
-      attachmentManager.submitAttachments();
       this.setState({textboxText: ""});
     }
   }

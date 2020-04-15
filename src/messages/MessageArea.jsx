@@ -12,11 +12,11 @@ class MessageArea extends React.Component {
     return (
       <div className="MessageArea">
         <ChatContext.Consumer>
-          {({channel, logout}) => (<div className="MessageArea">
+          {({channel, logout, attachmentManager}) => (<div className="MessageArea">
             {channel._id ? (
               <div className="MessageArea-channel">
                 <ChannelHeader channel={channel}/>
-                <MessageList channelId={channel._id} allowMessages={this.props.allowMessages}/>
+                <MessageList channelId={channel._id} attachmentManager={attachmentManager} allowMessages={this.props.allowMessages}/>
                 <MessageTextbox/>
               </div>
             ) : (
