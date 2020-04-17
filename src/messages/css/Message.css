@@ -5,8 +5,10 @@
 
 .Message-pfp {
   border-radius: 50%;
-  height: 2.5rem;
-  width: 2.5rem;
+  min-height: 2.5rem;
+  max-height: 2.5rem;
+  min-width: 2.5rem;
+  max-width: 2.5rem;
   background-color: #555555;
 }
 
@@ -22,13 +24,15 @@
 }
 
 .Message-container {
-  margin-left: 0rem;
+  margin-left: 0;
 }
 
 .Message-online {
   background-color: #77dd77;
-  height: 0.75rem;
-  width: 0.75rem;
+  max-height: 0.75rem;
+  min-height: 0.75rem;
+  max-width: 0.75rem;
+  min-width: 0.75rem;
   border-radius: 50%;
   position: relative;
   z-index: 1;
@@ -38,8 +42,10 @@
 
 .Message-offline {
   background-color: #494949;
-  height: 0.75rem;
-  width: 0.75rem;
+  max-height: 0.75rem;
+  min-height: 0.75rem;
+  max-width: 0.75rem;
+  min-width: 0.75rem;
   border-radius: 50%;
   position: relative;
   z-index: 1;

@@ -35,7 +35,10 @@ class MessageTextbox extends React.Component {
   handleKeyPress(e, channel, attachmentManager) {
     if (e.key === 'Enter' && !this.state.shiftKeyDown) {e.preventDefault();}
     if (e.key === 'Enter' && !this.state.shiftKeyDown && this.state.textboxText !== "") {
-      this.context.emit("sendmessage", this.state.textboxText, channel);
+      let predictionId = Math.floor(Math.random() * 10000000000);
+      this.context.emit("sendmessage", this.state.textboxText, channel, predictionId.toString());
+      this.props.addPrediction(predictionId.toString(), this.state.textboxText, attachmentManager.attachments);
+      attachmentManager.clearAttachments();
       this.setState({textboxText: ""});
     }
   }

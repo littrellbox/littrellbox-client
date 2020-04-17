@@ -11,12 +11,12 @@ class AttachmentManager {
 
     //create attachment handler function array
     this.newAttachmentFunctions = [];
-    this.submitAttachmentFunctions = [];
+    this.clearAttachmentFunctions = [];
 
     //bind class functions
     this.addDefaultAttachments = this.addDefaultAttachments.bind(this);
     this.addAttachmentToArray = this.addAttachmentToArray.bind(this);
-    this.submitAttachments = this.submitAttachments.bind(this);
+    this.clearAttachments = this.clearAttachments.bind(this);
 
     this.addDefaultAttachments();
   }
@@ -44,16 +44,12 @@ class AttachmentManager {
     }
   }
 
-  submitAttachments() {
-    let attachmentsFinal = [];
-    for(let i = 0; i < this.attachments.length; i++) {
-      attachmentsFinal.push(this.attachmentTypes[this.attachments[i].type].subManager.submitAttachment(this.attachments[i]));
-    }
+  clearAttachments() {
     this.attachments = [];
-    for(let i = 0; i < this.submitAttachmentFunctions.length; i++) {
-      this.submitAttachmentFunctions[i]();
+    console.log(this.clearAttachmentFunctions);
+    for(let i = 0; i < this.clearAttachmentFunctions.length; i++) {
+      this.clearAttachmentFunctions[i]();
     }
-    return attachmentsFinal;
   }
 }
 

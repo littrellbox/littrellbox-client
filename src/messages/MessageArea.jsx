@@ -5,8 +5,44 @@ import './css/MessageArea.css';
 import ChannelHeader from './ChannelHeader';
 import MessageTextbox from './MessageTextbox';
 import MessageList from './MessageList';
+import SocketContext from "../contexts/socketContext";
 
 class MessageArea extends React.Component {
+  constructor(props) {
+    super(props);
+
+    this.state = {
+      predictions: []
+    };
+
+    this.addPrediction = this.addPrediction.bind(this);
+    this.removePrediction = this.removePrediction.bind(this);
+  }
+
+  componentDidMount() {
+    this.context.on("msgpredictionsuccess", this.removePrediction);
+  };
+
+  addPrediction(id, text, attachments) {
+    let updateObject = this.state.predictions;
+    updateObject[id] = {
+      _id: id,
+      content: text,
+      attachments: attachments
+    };
+    this.setState({
+      predictions: updateObject
+    });
+  }
+
+  removePrediction(id) {
+    let updateObject = this.state.predictions;
+    delete updateObject[id];
+    this.setState({
+      predictions: updateObject
+    });
+  }
+
   render() {
     console.log("did render");
     return (
@@ -16,8 +52,13 @@ class MessageArea extends React.Component {
             {channel._id ? (
               <div className="MessageArea-channel">
                 <ChannelHeader channel={channel}/>
-                <MessageList channelId={channel._id} attachmentManager={attachmentManager} allowMessages={this.props.allowMessages}/>
-                <MessageTextbox/>
+                <MessageList
+                  channelId={channel._id}
+                  attachmentManager={attachmentManager}
+                  allowMessages={this.props.allowMessages}
+                  predictions={this.state.predictions}
+                />
+                <MessageTextbox addPrediction={this.addPrediction}/>
               </div>
             ) : (
               <div>
@@ -31,5 +72,7 @@ class MessageArea extends React.Component {
     );
   }
 }
+
+MessageArea.contextType = SocketContext;
 
 export default MessageArea;

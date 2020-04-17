@@ -3,6 +3,8 @@ import './css/MessageList.css';
 import SocketContext from '../contexts/socketContext';
 import Message from './Message';
 import ScrollableFeed from 'react-scrollable-feed';
+import PredictedMessage from "./PredictedMessage";
+import AuthContext from "../contexts/authContext";
 
 class MessageList extends React.Component {
   constructor(props) {
@@ -96,12 +98,14 @@ class MessageList extends React.Component {
   render() {
     console.log(this.state.messages);
     return (
-      <ScrollableFeed className="MessageList">
-          {this.state.messages.map((messages) => (<Message key={messages.key} messages={messages}/>))}
-          {/*<div className="MessageList">
-            {Object.entries(this.state.messages).map((message) => (<Message key={message[0]} message={message[1]}/>))}
-          </div>*/}
-        </ScrollableFeed>
+      <AuthContext.Consumer>
+        {(user) => (
+          <ScrollableFeed className="MessageList">
+            {this.state.messages.map((messages) => (<Message key={messages.key} messages={messages}/>))}
+            {Object.values(this.props.predictions).length !== 0 && <PredictedMessage prevMessageIsUser={this.state.messages[this.state.messages.length - 1].userId === user._id} predictions={this.props.predictions}/>}
+          </ScrollableFeed>
+        )}
+      </AuthContext.Consumer>
     );
   }
 }

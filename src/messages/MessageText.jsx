@@ -5,8 +5,11 @@ import formatText from './FormatText';
 
 class MessageText extends React.Component {
   render() {
+    let cssClass = (this.props.prediction ? "Message-content MessageText-prediction" : "Message-content");
     return (
-      <div className="Message-content"><ReactMarkdown escapeHtml={false} unwrapDisallowed={true} source={formatText(this.props.message.content)}/></div>
+      <div className={cssClass}>
+        <ReactMarkdown escapeHtml={false} unwrapDisallowed={true} source={formatText(this.props.message.content)}/>
+      </div>
     );
   }
 }
