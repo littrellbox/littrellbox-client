@@ -96,13 +96,12 @@ class MessageList extends React.Component {
   }
 
   render() {
-    console.log(this.state.messages);
     return (
       <AuthContext.Consumer>
         {(user) => (
           <ScrollableFeed className="MessageList">
             {this.state.messages.map((messages) => (<Message key={messages.key} messages={messages}/>))}
-            {Object.values(this.props.predictions).length !== 0 && <PredictedMessage prevMessageIsUser={this.state.messages[this.state.messages.length - 1].userId === user._id} predictions={this.props.predictions}/>}
+            {Object.values(this.props.predictions).length !== 0 && <PredictedMessage prevMessageIsUser={this.state.messages.length !== 0 && (this.state.messages[this.state.messages.length - 1].userId === user._id)} predictions={this.props.predictions}/>}
           </ScrollableFeed>
         )}
       </AuthContext.Consumer>
