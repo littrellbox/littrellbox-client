@@ -17,6 +17,7 @@ class AttachmentManager {
     this.addDefaultAttachments = this.addDefaultAttachments.bind(this);
     this.addAttachmentToArray = this.addAttachmentToArray.bind(this);
     this.clearAttachments = this.clearAttachments.bind(this);
+    this.submitAttachments = this.submitAttachments.bind(this);
 
     this.addDefaultAttachments();
   }
@@ -49,6 +50,12 @@ class AttachmentManager {
     console.log(this.clearAttachmentFunctions);
     for(let i = 0; i < this.clearAttachmentFunctions.length; i++) {
       this.clearAttachmentFunctions[i]();
+    }
+  }
+
+  submitAttachments() {
+    for(let i = 0; i < this.attachments.length; i++) {
+      this.attachmentTypes[this.attachments[i].type].subManager.submitAttachment(this.attachments[i]);
     }
   }
 }

@@ -30,7 +30,8 @@ class MessageList extends React.Component {
   componentDidUpdate(prevProps) {
     if(this.props.channelId !== prevProps.channelId) {
       this.setState({
-        messages: []
+        messages: [],
+        messageCount: 0
       });
       this.context.emit("getmessages", this.props.channelId);
     }

@@ -44,7 +44,6 @@ class MessageArea extends React.Component {
   }
 
   render() {
-    console.log("did render");
     return (
       <div className="MessageArea">
         <ChatContext.Consumer>
