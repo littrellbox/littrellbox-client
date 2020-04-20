@@ -53,9 +53,9 @@ class AttachmentManager {
     }
   }
 
-  submitAttachments() {
-    for(let i = 0; i < this.attachments.length; i++) {
-      this.attachmentTypes[this.attachments[i].type].subManager.submitAttachment(this.attachments[i]);
+  submitAttachments(attachments, messageId) {
+    for(let i = 0; i < attachments.length; i++) {
+      this.attachmentTypes[attachments[i].type].subManager.submitAttachment(attachments[i], messageId);
     }
   }
 }

@@ -1,10 +1,12 @@
 import axios from 'axios';
 
 class FileAttachmentSubManager {
-  submitAttachment(attachment) {
+  submitAttachment(attachment, messageId) {
+    console.log("submitting file");
     const formData = new FormData();
     formData.append('file', attachment.data);
     formData.append('name', attachment.name);
+    formData.append('message', messageId);
     formData.append('token', window.localStorage.getItem("token"));
     axios.post(window.serverURL + "/files/upload/file", formData, {
       headers: {
@@ -12,7 +14,7 @@ class FileAttachmentSubManager {
       },
       transformResponse: res => res,
       responseType: 'json'
-    })
+    });
   }
 }
 

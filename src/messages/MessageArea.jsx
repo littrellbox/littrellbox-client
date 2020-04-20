@@ -30,13 +30,16 @@ class MessageArea extends React.Component {
       content: text,
       attachments: attachments
     };
+    console.log(attachments);
     this.setState({
       predictions: updateObject
     });
   }
 
-  removePrediction(id) {
+  removePrediction(id, messageId) {
     let updateObject = this.state.predictions;
+    console.log(updateObject[id]);
+    this.props.attachmentManager.submitAttachments(updateObject[id].attachments, messageId);
     delete updateObject[id];
     this.setState({
       predictions: updateObject

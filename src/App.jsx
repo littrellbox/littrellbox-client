@@ -205,7 +205,7 @@ class App extends React.Component {
                   {this.state.inviteId === "" && <MOTD/>}
                   {this.state.inviteId !== "" && this.state.allowPlanets && <Invite id={this.state.inviteId} close={this.closeInvite}/>} 
                   {this.state.chat.planet._id && <ChannelSidebar allowChannels={this.state.allowChannels} planetId={this.state.chat.planet._id}/>}
-                  <MessageArea allowMessages={this.state.allowMessages}/>  
+                  <MessageArea allowMessages={this.state.allowMessages} attachmentManager={this.state.chat.attachmentManager}/>
                 </div>}
               </div>
             </InfoContext.Provider>
