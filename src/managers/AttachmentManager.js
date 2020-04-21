@@ -27,7 +27,7 @@ class AttachmentManager {
       type: "file",
       friendly: "File",
       icon: faFile,
-      component: FileAttachment,
+      component: NoComponentAttachment,
       subManager: new FileAttachmentSubManager()
     };
     this.attachmentTypes["poll"] = {

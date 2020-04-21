@@ -1,0 +1,21 @@
+.NoComponentAttachment {
+  background-color: #444444;
+  display: flex;
+  padding: 0.5rem;
+  border-radius: 0.25rem;
+}
+
+.NoComponentAttachment-icon {
+  color: #cc4444;
+  font-size: 1.35rem;
+  padding-right: 0.25rem;
+}
+
+.NoComponentAttachment-header {
+  font-size: 1.25rem;
+}
+
+.NoComponentAttachment-details {
+  font-size: 0.9rem;
+  color: #999999;
+}

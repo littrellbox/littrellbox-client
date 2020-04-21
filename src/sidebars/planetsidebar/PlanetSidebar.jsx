@@ -3,7 +3,7 @@ import './css/PlanetSidebar.css';
 import SocketContext from '../../contexts/socketContext';
 import PlanetSidebarButton from './PlanetSidebarButton';
 import { FontAwesomeIcon } from '@fortawesome/react-fontawesome';
-import { faPlus} from '@fortawesome/free-solid-svg-icons';
+import { faPlus } from '@fortawesome/free-solid-svg-icons';
 
 class PlanetSidebar extends React.Component {
   constructor(props) {
