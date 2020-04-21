@@ -12,13 +12,21 @@ class MessageList extends React.Component {
 
     this.state = {
       messages: [],
-      messageCount: 0
+      messageCount: 0,
+      scrollWorkaroundCounter: 0
     };
     
     this.recvBatchMessages = this.recvBatchMessages.bind(this);
     this.recvMessage = this.recvMessage.bind(this);
+    this.performScrollWorkaround = this.performScrollWorkaround.bind(this);
   }
-  
+
+  performScrollWorkaround() {
+    this.setState({
+      scrollWorkaroundCounter: this.state.scrollWorkaroundCounter + 1
+    });
+  }
+
   componentDidMount() {
     this.context.on("recvbatchmessage", this.recvBatchMessages);
     this.context.on("updatemessage", this.recvMessage);
@@ -100,9 +108,14 @@ class MessageList extends React.Component {
     return (
       <AuthContext.Consumer>
         {(user) => (
-          <ScrollableFeed className="MessageList">
-            {this.state.messages.map((messages) => (<Message key={messages.key} messages={messages}/>))}
-            {Object.values(this.props.predictions).length !== 0 && <PredictedMessage prevMessageIsUser={this.state.messages.length !== 0 && (this.state.messages[this.state.messages.length - 1].userId === user._id)} predictions={this.props.predictions}/>}
+          <ScrollableFeed forceScroll={true} scrollWorkaround={this.state.scrollWorkaroundCounter} className="MessageList">
+            {this.state.messages.map((messages) => (<Message key={messages.key} messages={messages} scrollWorkaround={this.performScrollWorkaround}/>))}
+            {Object.values(this.props.predictions).length !== 0 && <PredictedMessage
+              prevMessageIsUser={this.state.messages.length !== 0 && (this.state.messages[this.state.messages.length - 1].userId === user._id)}
+              predictions={this.props.predictions}
+              scrollWorkaround={this.performScrollWorkaround}
+            />}
+            <div ref={(el) => {this.messagesEnd = el;}}/>
           </ScrollableFeed>
         )}
       </AuthContext.Consumer>

@@ -1,0 +1,50 @@
+.FileAttachment-file {
+  background-color: #444444;
+  padding: 0.5rem;
+  display: flex;
+  width: max-content;
+  border-radius: 0.25rem;
+}
+
+.FileAttachment-file-name {
+  font-size: 1.25rem;
+}
+
+.FileAttachment-file-download {
+  font-size: 0.75rem;
+  color: #999999;
+  text-transform: uppercase;
+  font-weight: bold;
+  text-decoration: none;
+}
+
+.FileAttachment-file-icon {
+  font-size: 2.2rem;
+  padding-right: 0.25rem;
+}
+
+.FileAttachment-audio {
+  background-color: #444444;
+  padding: 0.5rem;
+  display: flex;
+  width: max-content;
+  border-radius: 0.25rem;
+}
+
+.FileAttachment-audio-name {
+  font-size: 0.75rem;
+  color: #cccccc;
+  font-weight: bold;
+  padding-bottom: 0.25rem;
+}
+
+.FileAttachment-audio-icon {
+  font-size: 0.75rem;
+  padding-right: 0.25rem;
+}
+
+.FileAttachment-image-img {
+  max-height: 40rem;
+  max-width: 60%;
+  border-radius: 0.25rem;
+}

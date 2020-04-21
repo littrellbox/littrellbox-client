@@ -17,7 +17,7 @@ class PredictedMessage extends React.Component {
               <div className="Message-info-container">
                 {!this.props.prevMessageIsUser && <div className="Message-username">{user.username}</div>}
               </div>
-              {Object.values(this.props.predictions).map((message) => (<MessageText prediction={true} key={message._id} message={message}/>))}
+              {Object.values(this.props.predictions).map((message) => (<MessageText scrollWorkaround={this.props.scrollWorkaround} prediction={true} key={message._id} message={message}/>))}
             </div>
           </div>
         )}

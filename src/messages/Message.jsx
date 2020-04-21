@@ -41,7 +41,7 @@ class Message extends React.Component {
             {this.state.user.username && <div className="Message-username">{this.props.messages.messages[0].username}</div>}
             <div className="Message-date">{new Date(this.props.messages.messages[this.props.messages.messages.length - 1].date).toLocaleDateString(navigator.language, timeOptions)}</div>
           </div>
-          {this.props.messages.messages.map((message) => (<MessageText key={message._id} message={message}/>))}
+          {this.props.messages.messages.map((message) => (<MessageText scrollWorkaround={this.props.scrollWorkaround} key={message._id} message={message}/>))}
         </div>
       </div>
     );

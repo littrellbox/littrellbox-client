@@ -41,7 +41,7 @@ class MessageText extends React.Component {
     return (
       <div className={cssClass}>
         <ReactMarkdown escapeHtml={false} unwrapDisallowed={true} source={formatText(this.props.message.content)}/>
-        {!this.props.prediction && <MessageAttachments attachments={Object.values(this.state.attachments)}/>}
+        {!this.props.prediction && <MessageAttachments scrollWorkaround={this.props.scrollWorkaround} attachments={Object.values(this.state.attachments)}/>}
       </div>
     );
   }

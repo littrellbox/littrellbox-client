@@ -18,6 +18,7 @@ class AttachmentManager {
     this.addAttachmentToArray = this.addAttachmentToArray.bind(this);
     this.clearAttachments = this.clearAttachments.bind(this);
     this.submitAttachments = this.submitAttachments.bind(this);
+    this.removeAttachment = this.removeAttachment.bind(this);
 
     this.addDefaultAttachments();
   }
@@ -27,7 +28,7 @@ class AttachmentManager {
       type: "file",
       friendly: "File",
       icon: faFile,
-      component: NoComponentAttachment,
+      component: FileAttachment,
       subManager: new FileAttachmentSubManager()
     };
     this.attachmentTypes["poll"] = {
@@ -36,6 +37,13 @@ class AttachmentManager {
       icon: faPoll,
       component: NoComponentAttachment
     };
+  }
+
+  removeAttachment(index) {
+    this.attachments.splice(index, 1);
+    for(let i = 0; i < this.clearAttachmentFunctions.length; i++) {
+      this.clearAttachmentFunctions[i]();
+    }
   }
 
   addAttachmentToArray(attachment) {
@@ -47,7 +55,6 @@ class AttachmentManager {
 
   clearAttachments() {
     this.attachments = [];
-    console.log(this.clearAttachmentFunctions);
     for(let i = 0; i < this.clearAttachmentFunctions.length; i++) {
       this.clearAttachmentFunctions[i]();
     }

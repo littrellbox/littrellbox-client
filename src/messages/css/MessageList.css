@@ -16,3 +16,8 @@
 .MessageList::-webkit-scrollbar-track {
   background-color: #3c3c3c;
 }
+
+.MessageList-scroll-element {
+  margin-bottom: -1rem;
+  width: 0;
+}
