@@ -4,19 +4,15 @@
   margin-right: 1rem;
   margin-bottom: 1rem;
   overflow: auto;
-  scrollbar-color: #555555 #444444;
+  scrollbar-color: #4c4c4c #3c3c3c;
   scrollbar-width: thin;
 }
 
-::-webkit-scrollbar-thumb {
-  background-color: #555555;
+.MessageList::-webkit-scrollbar-thumb {
+  background-color: #4c4c4c;
   border-radius: 0.5rem;
 }
 
-::-webkit-scrollbar-track {
-  background-color: #444444;
-}
-
-::-webkit-scrollbar {
-  width: 0.5rem;
+.MessageList::-webkit-scrollbar-track {
+  background-color: #3c3c3c;
 }

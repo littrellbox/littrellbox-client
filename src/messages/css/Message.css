@@ -9,7 +9,7 @@
   max-height: 2.5rem;
   min-width: 2.5rem;
   max-width: 2.5rem;
-  background-color: #555555;
+  background-color: #444444;
 }
 
 .Message-username {
@@ -41,7 +41,7 @@
 }
 
 .Message-offline {
-  background-color: #494949;
+  background-color: #555555;
   max-height: 0.75rem;
   min-height: 0.75rem;
   max-width: 0.75rem;

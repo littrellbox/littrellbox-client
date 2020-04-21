@@ -14,9 +14,17 @@ class PlanetSidebarButton extends React.Component {
   }
 
   render() {
+    let text = "";
+    if(this.props.planet) {
+      let textsplit = this.props.planet.name.split(" ");
+      textsplit.forEach(element => {
+        text = text + element.substring(0,1);
+      });
+    }
+
     return (
       <div className="PlanetSidebarButton" onClick={this.onClick}>
-        <div className="PlanetSidebarButton-text">{this.props.planet.name}</div>
+        <div className="PlanetSidebarButton-text">{text}</div>
       </div>
     );
   }

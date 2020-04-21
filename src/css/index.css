@@ -18,7 +18,7 @@ code {
 }
 
 input[type=text], input[type=password] {
-  background: #333333;
+  background: #222222;
   border-radius: 0.25rem;
   border-style: none;
   padding: 0.5rem;
@@ -27,15 +27,15 @@ input[type=text], input[type=password] {
 }
 
 input[type=text]:hover, input[type=password]:hover {
-  background: #444444;
+  background: #333333;
 }
 
 input[type=text]:focus, input[type=password]:focus {
-  background: #444444;
+  background: #333333;
 }
 
 .button {
-  background: #333333;
+  background: #222222;
   border-radius: 0.25rem;
   padding: 0.5rem;
   cursor: pointer;
@@ -43,7 +43,7 @@ input[type=text]:focus, input[type=password]:focus {
 }
 
 .button:hover {
-  background: #444444;
+  background: #333333;
 }
 
 .fullscreen-close {
@@ -92,4 +92,8 @@ a {
 
 h1 {
   margin: 0;
+}
+
+::-webkit-scrollbar {
+  width: 0.5rem;
 }

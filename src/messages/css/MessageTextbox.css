@@ -1,5 +1,5 @@
 .MessageTextbox {
-  background-color: #555555;
+  background-color: #444444;
   padding: 0.5rem;
   border-radius: 0.25rem;
   color: #cccccc;
@@ -14,7 +14,7 @@
 
 .MessageTextbox-textbox {
   width: 100%;
-  background-color: #555555;
+  background-color: #444444;
   border: none;
   font-size: 1rem;
   resize: none;
@@ -49,6 +49,6 @@
 }
 
 .emoji-mart-preview {
-  height: 0px !important;
+  height: 0 !important;
   display: none !important;
 }
