@@ -16,7 +16,7 @@ class PlanetSidebarButton extends React.Component {
   render() {
     return (
       <div className="PlanetSidebarButton" onClick={this.onClick}>
-        {this.props.planet.name}
+        <div className="PlanetSidebarButton-text">{this.props.planet.name}</div>
       </div>
     );
   }

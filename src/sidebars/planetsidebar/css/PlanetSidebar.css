@@ -1,12 +1,14 @@
 .PlanetSidebar {
   padding: 0.5rem;
-  min-width: 4.5rem;
+  min-width: 4rem;
   max-height: 100%;
-  overflow: auto;
+  overflow-x: visible;
+  overflow-y: visible;
   padding-bottom: 0;
   scrollbar-width: none;
   margin-right: -1rem;
   transition: 0.2s;
+  z-index: 2;
 }
 
 .PlanetSidebar::-webkit-scrollbar {
