@@ -32,6 +32,15 @@ class MessageTextbox extends React.Component {
     this.fileDialogOnChange = this.fileDialogOnChange.bind(this);
   }
 
+  shouldComponentUpdate(nextProps, nextState, nextContext) {
+    if(this.props !== nextProps) {
+      return true;
+    }
+    if(this.state !== nextState) {
+      return true;
+    }
+  }
+
   handleKeyPress(e, channel, attachmentManager) {
     if (e.key === 'Enter' && !this.state.shiftKeyDown) {e.preventDefault();}
     if (e.key === 'Enter' && !this.state.shiftKeyDown && (this.state.textboxText !== "" || attachmentManager.attachments.length > 0)) {
@@ -60,7 +69,6 @@ class MessageTextbox extends React.Component {
   }
 
   onSelect(emoji) {
-    console.log(emoji.id);
     this.setState({
       textboxText: this.state.textboxText + " :" + emoji.id + ":"
     });
@@ -77,10 +85,7 @@ class MessageTextbox extends React.Component {
   }
 
   fileDialogOnChange(e, attachmentManager) {
-    console.log("a");
-    console.log(e.target.files);
     for(let i = 0; i < e.target.files.length; i++) {
-      console.log("b");
       let attachmentObject = {
         type: "file",
         name: e.target.files[i].name,
@@ -93,7 +98,7 @@ class MessageTextbox extends React.Component {
   render() {
     return (
       <ChatContext.Consumer>
-        {({channel, attachmentManager}) => {
+        {({attachmentManager}) => {
           return (
             <div className="MessageTextbox">
               <div className="MessageTextbox-container">
@@ -101,12 +106,12 @@ class MessageTextbox extends React.Component {
                   className="MessageTextbox-textbox"
                   rows="1"
                   tabIndex="1"
-                  placeholder={"Message #" + channel.name}
+                  placeholder={"Message #" + this.props.channel.name}
                   value={this.state.textboxText}
                   onChange={this.onChange}
                   onKeyDown={this.handleKeyDown}
                   onKeyUp={this.handleKeyUp}
-                  onKeyPress={(e) => this.handleKeyPress(e, channel._id, attachmentManager)}
+                  onKeyPress={(e) => this.handleKeyPress(e, this.props.channel._id, attachmentManager)}
                 />
                 {this.state.showPicker && <div className="fullscreen-close" onClick={this.showPicker}/>}
                 <input type="file" onChange={(e) => {this.fileDialogOnChange(e, attachmentManager);}} ref={this.fileDialog} style={{display: "none"}}/>

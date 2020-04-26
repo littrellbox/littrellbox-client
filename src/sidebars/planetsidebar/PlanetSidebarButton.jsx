@@ -13,6 +13,12 @@ class PlanetSidebarButton extends React.Component {
     this.context.emit("openplanet", this.props.planet._id);
   }
 
+  shouldComponentUpdate(nextProps, nextState, nextContext) {
+    if(this.props !== nextProps) {
+      return true;
+    }
+  }
+
   render() {
     let text = "";
     if(this.props.planet) {

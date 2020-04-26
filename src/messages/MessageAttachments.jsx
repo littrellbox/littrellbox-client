@@ -9,10 +9,13 @@ class MessageAttachments extends React.Component {
     this.onLoad = this.onLoad.bind(this);
   }
 
-  //this shouldn't rerender anything
-  infiniteLoopPreventionArray = [];
+  shouldComponentUpdate(nextProps, nextState, nextContext) {
+    return this.props !== nextProps;
+  }
 
-  onLoad(attachmentId, shouldWait) {
+  onLoad() {
+    this.props.scrollWorkaround();
+    /* more code for the bad museum
     //this sucks, and i really wish there was a way to fix this properly
     //without moving the entire state of every object up
     if(!this.infiniteLoopPreventionArray.includes(attachmentId)) {
@@ -22,7 +25,7 @@ class MessageAttachments extends React.Component {
         setTimeout(this.props.scrollWorkaround, 200);
       }
       this.infiniteLoopPreventionArray.push(attachmentId);
-    }
+    }*/
   }
 
   render() {
@@ -31,12 +34,10 @@ class MessageAttachments extends React.Component {
         {({attachmentManager}) => (
           <div className="MessageAttachments">
             {this.props.attachments.map((value) => {
-              console.log(attachmentManager);
-              console.log(value);
               const AttachmentComponent = attachmentManager.attachmentTypes[value.type].component;
               return (
-                <div className="MessageAttachments-container">
-                  <AttachmentComponent onLoad={(shouldWait) => {this.onLoad(value._id, shouldWait);}} attachment={value}/>
+                <div key={value._id} className="MessageAttachments-container">
+                  <AttachmentComponent onLoad={this.onLoad} attachment={value}/>
                 </div>
               );
             })}

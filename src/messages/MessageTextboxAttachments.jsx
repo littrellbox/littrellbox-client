@@ -12,6 +12,15 @@ class MessageTextboxAttachments extends React.Component {
     };
   }
 
+  shouldComponentUpdate(nextProps, nextState, nextContext) {
+    if(this.props !== nextProps) {
+      return true;
+    }
+    if(this.state !== nextState) {
+      return true;
+    }
+  }
+
   componentDidMount() {
     this.props.attachmentManager.newAttachmentFunctions.push(() => {this.setState({stateIncrement: this.state.stateIncrement + 1});});
     this.props.attachmentManager.clearAttachmentFunctions.push(() => {this.setState({stateIncrement: this.state.stateIncrement + 1});});

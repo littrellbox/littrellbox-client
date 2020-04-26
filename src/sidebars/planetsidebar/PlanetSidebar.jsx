@@ -22,6 +22,15 @@ class PlanetSidebar extends React.Component {
     this.showCreatePlanet = this.showCreatePlanet.bind(this);
   }
 
+  shouldComponentUpdate(nextProps, nextState, nextContext) {
+    if(this.props !== nextProps) {
+      return true;
+    }
+    if(this.state !== nextState) {
+      return true;
+    }
+  }
+
   componentDidMount() {
     this.context.on('updateplanet', this.updatePlanet);
     this.setState({

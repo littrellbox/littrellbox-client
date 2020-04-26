@@ -62,7 +62,7 @@ class MessageArea extends React.Component {
                   allowMessages={this.props.allowMessages}
                   predictions={this.state.predictions}
                 />
-                <MessageTextbox addPrediction={this.addPrediction}/>
+                <MessageTextbox channel={channel} addPrediction={this.addPrediction}/>
               </div>
             ) : (
               <div>

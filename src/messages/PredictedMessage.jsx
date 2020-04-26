@@ -4,6 +4,13 @@ import MessageText from "./MessageText";
 import './css/PredictedMessage.css';
 
 class PredictedMessage extends React.Component {
+  shouldComponentUpdate(nextProps, nextState, nextContext) {
+    //the user isn't going to change while this is showing, so we can rerender based on props
+    if(this.props !== nextProps) {
+      return true;
+    }
+  }
+
   render() {
     let cssClass = (this.props.prevMessageIsUser ? "PredictedMessage" : "Message");
     return (

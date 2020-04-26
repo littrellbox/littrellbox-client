@@ -81,7 +81,7 @@ class App extends React.Component {
   }
 
   setInfo(info) {
-    info.clientVersion = "0.0.3a-preview";
+    info.clientVersion = "0.1 alpha";
     this.setState({
       info: info
     });

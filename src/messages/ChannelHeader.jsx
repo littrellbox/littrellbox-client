@@ -2,6 +2,12 @@ import React from 'react';
 import './css/ChannelHeader.css';
 
 class ChannelHeader extends React.Component {
+  shouldComponentUpdate(nextProps, nextState, nextContext) {
+    if(this.props !== nextProps) {
+      return true;
+    }
+  }
+
   render() {
     return (
       <div className="ChannelHeader">

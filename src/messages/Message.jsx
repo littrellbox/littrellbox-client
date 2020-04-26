@@ -14,6 +14,15 @@ class Message extends React.Component {
     this.updateUser = this.updateUser.bind(this);
   }
 
+  shouldComponentUpdate(nextProps, nextState, nextContext) {
+    if(this.props !== nextProps) {
+      return true;
+    }
+    if(this.state !== nextState) {
+      return true;
+    }
+  }
+
   componentDidMount() {
     this.context.on("updateuser", this.updateUser);
 

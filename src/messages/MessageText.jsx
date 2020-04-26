@@ -16,6 +16,15 @@ class MessageText extends React.Component {
     this.updateAttachment = this.updateAttachment.bind(this);
   }
 
+  shouldComponentUpdate(nextProps, nextState, nextContext) {
+    if(this.props !== nextProps) {
+      return true;
+    }
+    if(this.state !== nextState) {
+      return true;
+    }
+  }
+
   componentDidMount() {
     if(!this.props.prediction) {
       //setup attachments
@@ -32,7 +41,6 @@ class MessageText extends React.Component {
       this.setState({
         attachments: updateObject
       });
-      console.log(updateObject);
     }
   }
 

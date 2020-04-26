@@ -11,6 +11,12 @@ class FileAttachment extends React.Component {
     }
   }
 
+  shouldComponentUpdate(nextProps, nextState, nextContext) {
+    if(this.props !== nextProps) {
+      return true;
+    }
+  }
+
   render() {
     const reconstructedPath = this.props.attachment.userId + "/" + this.props.attachment._id + "/" + this.props.attachment.name;
 
@@ -31,7 +37,7 @@ class FileAttachment extends React.Component {
     if(FileTypes.imageTypes.includes(this.props.attachment.data.type)) {
       return (
         <div className="FileAttachment-image">
-          <img onLoad={this.props.onLoad(true)} alt="Attachment" className="FileAttachment-image-img" src={window.serverURL + "/files/get/" + reconstructedPath}/>
+          <img onLoad={this.props.onLoad} alt="Attachment" className="FileAttachment-image-img" src={window.serverURL + "/files/get/" + reconstructedPath}/>
         </div>
       );
     }

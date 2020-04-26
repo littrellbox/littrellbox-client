@@ -21,7 +21,6 @@ class MOTD extends React.Component {
   }
 
   recvMOTD(MOTD) {
-    console.log(MOTD.toString());
     this.setState({
       MOTD
     });
