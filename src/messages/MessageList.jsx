@@ -19,12 +19,19 @@ class MessageList extends React.Component {
     this.recvBatchMessages = this.recvBatchMessages.bind(this);
     this.recvMessage = this.recvMessage.bind(this);
     this.performScrollWorkaround = this.performScrollWorkaround.bind(this);
+
+    this.endingElement = React.createRef();
   }
 
   performScrollWorkaround() {
+    window.requestAnimationFrame(() => {
+      this.endingElement.current.scrollIntoView();
+    });
+
+    /* this is just here to be part of the Museum of Bad Ideas
     this.setState({
       scrollWorkaroundCounter: this.state.scrollWorkaroundCounter + 1
-    });
+    });*/
   }
 
   componentDidMount() {
@@ -115,7 +122,7 @@ class MessageList extends React.Component {
               predictions={this.props.predictions}
               scrollWorkaround={this.performScrollWorkaround}
             />}
-            <div ref={(el) => {this.messagesEnd = el;}}/>
+            <div ref={this.endingElement}/>
           </ScrollableFeed>
         )}
       </AuthContext.Consumer>
